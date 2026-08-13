@@ -382,6 +382,9 @@ a:hover { text-decoration: underline; }
 }
 #tut-canvas {
   touch-action: none;
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 .tut-stats {
   font-size: 0.9rem;

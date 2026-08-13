@@ -28,10 +28,13 @@
   const COLORS = {
     red: '#EC4899',
     blue: '#06B6D4',
-    redLight: 'rgba(236, 72, 153, 0.1)',
-    blueLight: 'rgba(6, 182, 212, 0.1)',
-    gridSize: 20
+    redLight: 'rgba(236, 72, 153, 0.38)',
+    blueLight: 'rgba(6, 182, 212, 0.38)',
+    predMarker: '#FBBF24',
+    gridSize: 16
   };
+
+  let hoverPoint = null; // { x, y } canvas coords for live prediction preview
 
   // Initialize when DOM is ready
   function init() {
@@ -59,6 +62,9 @@
     // Event listeners
     canvas.addEventListener('click', handleCanvasClick);
     canvas.addEventListener('touchstart', handleTouch, { passive: false });
+    canvas.addEventListener('mousemove', handleCanvasHover);
+    canvas.addEventListener('mouseleave', clearHover);
+    canvas.addEventListener('touchmove', handleTouchHover, { passive: false });
     redBtn.addEventListener('click', () => setColor('red'));
     blueBtn.addEventListener('click', () => setColor('blue'));
     clearBtn.addEventListener('click', clearPoints);
@@ -70,15 +76,25 @@
     draw();
   }
 
+  // Map screen coords to canvas internal coords (handles CSS scaling)
+  function canvasCoords(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY
+    };
+  }
+
+  function isInsideCanvas(x, y) {
+    return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
+  }
+
   // Handle canvas click (mouse)
   function handleCanvasClick(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Check bounds
-    if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) return;
-
+    const { x, y } = canvasCoords(e.clientX, e.clientY);
+    if (!isInsideCanvas(x, y)) return;
     addPoint(x, y);
   }
 
@@ -86,13 +102,37 @@
   function handleTouch(e) {
     e.preventDefault();
     const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-
-    if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) return;
-
+    const { x, y } = canvasCoords(touch.clientX, touch.clientY);
+    if (!isInsideCanvas(x, y)) return;
     addPoint(x, y);
+  }
+
+  function handleCanvasHover(e) {
+    const { x, y } = canvasCoords(e.clientX, e.clientY);
+    if (!isInsideCanvas(x, y)) {
+      clearHover();
+      return;
+    }
+    hoverPoint = { x, y };
+    draw();
+  }
+
+  function handleTouchHover(e) {
+    if (!e.touches.length) return;
+    const touch = e.touches[0];
+    const { x, y } = canvasCoords(touch.clientX, touch.clientY);
+    if (!isInsideCanvas(x, y)) {
+      clearHover();
+      return;
+    }
+    hoverPoint = { x, y };
+    draw();
+  }
+
+  function clearHover() {
+    if (!hoverPoint) return;
+    hoverPoint = null;
+    draw();
   }
 
   // Add a training point
@@ -131,7 +171,7 @@
 
   // k-NN prediction
   function predict(x, y) {
-    if (points.length === 0) return 'red';
+    if (points.length === 0) return null;
 
     // 1. Calculate distances to ALL training points
     const distances = points.map(p => ({ color: p.color, d: distance(p, { x, y }) }));
@@ -147,6 +187,30 @@
     return redVotes > neighbors.length / 2 ? 'red' : 'blue';
   }
 
+  function drawPredictionMarker(x, y, pred) {
+    const gridSize = COLORS.gridSize;
+    const cellX = Math.floor(x / gridSize) * gridSize;
+    const cellY = Math.floor(y / gridSize) * gridSize;
+
+    ctx.fillStyle = pred === 'red'
+      ? 'rgba(236, 72, 153, 0.55)'
+      : 'rgba(6, 182, 212, 0.55)';
+    ctx.fillRect(cellX, cellY, gridSize, gridSize);
+
+    ctx.beginPath();
+    ctx.arc(x, y, 14, 0, Math.PI * 2);
+    ctx.fillStyle = pred === 'red' ? COLORS.redLight : COLORS.blueLight;
+    ctx.fill();
+    ctx.strokeStyle = COLORS.predMarker;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = COLORS.predMarker;
+    ctx.fill();
+  }
+
   // Draw everything
   function draw() {
     if (!ctx) return;
@@ -157,11 +221,20 @@
     // Clear canvas
     ctx.clearRect(0, 0, w, h);
 
+    if (points.length === 0) {
+      ctx.fillStyle = 'rgba(241, 240, 255, 0.55)';
+      ctx.font = '700 16px Nunito, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(t('tut_canvas_hint'), w / 2, h / 2);
+      return;
+    }
+
     // Draw decision boundary grid
     const gridSize = COLORS.gridSize;
     for (let x = 0; x < w; x += gridSize) {
       for (let y = 0; y < h; y += gridSize) {
-        const pred = predict(x, y);
+        const pred = predict(x + gridSize / 2, y + gridSize / 2);
         ctx.fillStyle = pred === 'red' ? COLORS.redLight : COLORS.blueLight;
         ctx.fillRect(x, y, gridSize, gridSize);
       }
@@ -177,12 +250,17 @@
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      // White center dot for visibility
       ctx.beginPath();
       ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
       ctx.fillStyle = '#fff';
       ctx.fill();
     });
+
+    // Live prediction preview under cursor (yellow ring from legend)
+    if (hoverPoint) {
+      const hoverPred = predict(hoverPoint.x, hoverPoint.y);
+      if (hoverPred) drawPredictionMarker(hoverPoint.x, hoverPoint.y, hoverPred);
+    }
   }
 
   // Update UI elements
@@ -310,6 +388,7 @@ draw(); // Pierwsze rysowanie
       tut_stat_red: 'Czerwone: 0',
       tut_stat_blue: 'Niebieskie: 0',
       tut_stat_k: 'k = 3',
+      tut_canvas_hint: 'Dodaj punkty — kolorowe tło pokaże przewidywania AI',
       tut_copy_btn: '📋 Skopiuj kod do schowka',
       tut_copy_success: 'Skopiowano! Wklej do pliku .html i otwórz w przeglądarce.'
     };
