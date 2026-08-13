@@ -1,0 +1,477 @@
+/* =============================================
+   games.css — Mini-game specific styles
+   ============================================= */
+
+/* =============================================
+   GAME 1 — Train Aiki
+   ============================================= */
+.g1-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 600px) { .g1-layout { grid-template-columns: 1fr; } }
+
+.g1-panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+.g1-panel h4 {
+  font-size: 1rem; font-weight: 800; margin-bottom: 1rem;
+  color: var(--purple-lt);
+}
+
+.g1-image-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.g1-sample {
+  aspect-ratio: 1;
+  min-height: 72px;
+  border-radius: var(--radius);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem; cursor: pointer;
+  background: var(--bg3); border: 2px solid transparent;
+  transition: all 0.2s;
+}
+@supports (aspect-ratio: 1) {
+  .g1-sample { min-height: auto; }
+}
+.g1-sample:hover { border-color: var(--purple-lt); transform: scale(1.08); }
+.g1-sample.selected-cat  { border-color: var(--cyan);   background: rgba(6,182,212,0.15); }
+.g1-sample.selected-dog  { border-color: var(--yellow);  background: rgba(251,191,36,0.15); }
+
+.g1-current-image {
+  font-size: 5rem;
+  line-height: 1;
+  min-height: 140px;
+  margin: 0.5rem 0 1rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg3);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce-in 0.35s ease both;
+}
+.g1-choice-hint {
+  text-align: center;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.g1-label-dog {
+  background: rgba(251,191,36,0.15);
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+}
+.g1-label-dog:hover {
+  background: rgba(251,191,36,0.25);
+}
+.g1-brain-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.g1-btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.g1-btn-row .btn { flex: 1 1 140px; justify-content: center; font-size: 1rem; padding: 0.85rem 1rem; min-height: 52px; }
+
+.g1-progress {
+  text-align: center; font-size: 0.85rem; color: var(--text-muted);
+  font-weight: 700; margin-bottom: 1rem;
+}
+.g1-bar-wrap {
+  background: var(--surface); border-radius: 99px; height: 8px; overflow: hidden; margin-bottom: 1rem;
+}
+.g1-bar {
+  height: 100%; background: linear-gradient(90deg, var(--cyan), var(--purple-lt));
+  border-radius: 99px; transition: width 0.4s ease;
+}
+
+/* Aiki's brain panel */
+.g1-brain-panel {
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.g1-aiki-face { font-size: 5rem; animation: aiki-float 2s ease-in-out infinite; }
+.g1-brain-bar {
+  width: 100%;
+  background: var(--bg3); border-radius: var(--radius); padding: 0.75rem;
+  border: 1px solid var(--border);
+}
+.g1-brain-bar-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; font-weight: 700; }
+.g1-brain-fill-wrap { background: var(--surface); border-radius: 99px; height: 10px; overflow: hidden; }
+.g1-brain-fill {
+  height: 100%; border-radius: 99px; transition: width 0.6s ease;
+}
+.g1-brain-fill.cats { background: linear-gradient(90deg, var(--cyan), var(--cyan-lt)); }
+.g1-brain-fill.dogs { background: linear-gradient(90deg, var(--yellow), var(--orange)); }
+
+.g1-guess-area {
+  text-align: center; padding: 1rem;
+  background: var(--bg3); border-radius: var(--radius); border: 1px solid var(--border);
+}
+.g1-guess-img { font-size: 4rem; margin-bottom: 0.5rem; }
+.g1-guess-label { font-weight: 700; font-size: 1rem; color: var(--text-muted); }
+.g1-guess-result { font-size: 1.1rem; font-weight: 800; margin-top: 0.5rem; min-height: 1.5em; }
+
+/* =============================================
+   GAME 2 — Data Sorter
+   ============================================= */
+.g2-layout {
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+
+.g2-stream {
+  min-height: 100px;
+  background: var(--bg3); border-radius: var(--radius); padding: 1rem;
+  display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.g2-stream-label {
+  position: absolute; top: -0.6rem; left: 1rem;
+  background: var(--bg3); padding: 0 0.5rem;
+  font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
+}
+
+.g2-hint {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+.g2-item {
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  min-width: 60px;
+  text-align: center;
+  color: var(--text);
+  font-family: inherit;
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.g2-item.selected {
+  border-color: var(--cyan-lt);
+  background: rgba(6,182,212,0.18);
+  box-shadow: 0 0 0 3px rgba(6,182,212,0.25);
+}
+.g2-item.dragging {
+  opacity: 0.45;
+}
+.g2-drag-clone {
+  cursor: grabbing;
+}
+.drop-zone {
+  cursor: pointer;
+}
+.drop-zone.drag-over,
+.drop-zone:focus-within {
+  border-color: var(--cyan-lt) !important;
+  background: rgba(6,182,212,0.12) !important;
+}
+.g2-item.type-numbers { border-color: var(--purple-lt); }
+.g2-item.type-words   { border-color: var(--cyan); }
+.g2-item.type-images  { border-color: var(--yellow); font-size: 1.5rem; }
+.g2-item.type-number  { border-color: var(--purple-lt); }
+.g2-item.type-word    { border-color: var(--cyan); }
+.g2-item.type-image   { border-color: var(--yellow); font-size: 1.5rem; }
+
+.g2-baskets {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+@media (max-width: 500px) { .g2-baskets { grid-template-columns: 1fr; } }
+
+.drop-zone {
+  min-height: 140px;
+  background: var(--bg3); border-radius: var(--radius);
+  border: 2px dashed var(--border);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  padding: 0.75rem; position: relative;
+}
+.drop-zone .basket-label {
+  font-size: 0.9rem; font-weight: 800; color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+.drop-zone .basket-items {
+  display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center;
+}
+.drop-zone[data-basket="numbers"] { border-color: rgba(168,85,247,0.4); }
+.drop-zone[data-basket="words"]   { border-color: rgba(6,182,212,0.4); }
+.drop-zone[data-basket="images"]  { border-color: rgba(251,191,36,0.4); }
+
+.g2-score-bar {
+  display: flex; align-items: center; gap: 1rem;
+  font-weight: 800; font-size: 1rem;
+}
+.g2-score-val { color: var(--purple-lt); font-size: 1.3rem; }
+.g2-feedback-flash {
+  padding: 0.5rem 1rem; border-radius: 99px; font-weight: 800; font-size: 0.95rem;
+  transition: opacity 0.3s;
+}
+.g2-feedback-flash.correct { background: rgba(16,185,129,0.2); color: var(--green); }
+.g2-feedback-flash.wrong   { background: rgba(236,72,153,0.2);  color: var(--pink-lt); }
+
+/* =============================================
+   GAME 3 — Aiki's Maze
+   ============================================= */
+.g3-layout {
+  display: grid; grid-template-columns: auto 1fr; gap: 2rem;
+  align-items: start;
+}
+@media (max-width: 650px) { .g3-layout { grid-template-columns: 1fr; } }
+
+/* Maze grid */
+.maze-grid {
+  display: grid;
+  gap: 3px;
+  background: var(--bg3);
+  border-radius: var(--radius);
+  padding: 8px;
+  border: 2px solid var(--border);
+  width: fit-content;
+}
+.maze-cell {
+  width: 52px; height: 52px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+}
+@media (max-width: 400px) { .maze-cell { width: 40px; height: 40px; font-size: 1rem; } }
+
+.maze-cell.wall    { background: var(--surface2); }
+.maze-cell.path    { background: var(--bg3); }
+.maze-cell.start   { background: rgba(16,185,129,0.2); border: 2px solid var(--green); }
+.maze-cell.goal    { background: rgba(251,191,36,0.2); border: 2px solid var(--yellow); }
+.maze-cell.visited { background: rgba(124,58,237,0.15); }
+.maze-cell.current { background: rgba(6,182,212,0.25); border: 2px solid var(--cyan); }
+
+/* Controls panel */
+.g3-controls {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.g3-dpad {
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+  gap: 0.4rem;
+  width: fit-content;
+}
+.g3-dpad-btn {
+  width: 52px; height: 52px; border-radius: var(--radius);
+  background: var(--surface); color: var(--text);
+  font-size: 1.2rem; font-weight: 800;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.g3-dpad-btn:hover { background: var(--purple); border-color: var(--purple-lt); }
+.g3-dpad-btn:active { transform: scale(0.9); }
+.g3-dpad-btn[data-dir="up"]    { grid-area: up; }
+.g3-dpad-btn[data-dir="down"]  { grid-area: down; }
+.g3-dpad-btn[data-dir="left"]  { grid-area: left; }
+.g3-dpad-btn[data-dir="right"] { grid-area: right; }
+
+.g3-sequence {
+  background: var(--bg3); border-radius: var(--radius);
+  padding: 0.75rem; min-height: 60px;
+  border: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center;
+}
+.g3-step-pill {
+  background: var(--surface2); border-radius: 8px;
+  padding: 0.25rem 0.5rem; font-size: 1rem;
+}
+.g3-step-pill.active { background: var(--cyan); color: var(--bg); }
+.g3-step-pill.done   { background: var(--green); color: var(--bg); opacity: 0.6; }
+.g3-step-pill.error  { background: var(--pink); color: var(--bg); }
+
+.g3-steps-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; }
+
+.g3-action-row { display: flex; gap: 0.5rem; }
+.g3-action-row .btn { flex: 1; justify-content: center; font-size: 0.85rem; padding: 0.6rem; }
+
+.g3-msg {
+  padding: 0.75rem; border-radius: var(--radius);
+  font-weight: 700; font-size: 0.95rem; text-align: center;
+  min-height: 2.5em;
+}
+.g3-msg.win  { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid var(--green); }
+.g3-msg.fail { background: rgba(236,72,153,0.15);  color: var(--pink-lt); border: 1px solid var(--pink); }
+
+/* =============================================
+   GAME 4 — Scratch Lab
+   ============================================= */
+.g4-layout { display: flex; flex-direction: column; gap: 1rem; }
+.g4-header { text-align: center; }
+.g4-level-badge {
+  display: inline-block;
+  background: rgba(124,58,237,0.25);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--purple-lt);
+  margin-bottom: 0.5rem;
+}
+.g4-instruction {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.g4-workspace {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+@media (max-width: 750px) { .g4-workspace { grid-template-columns: 1fr; } }
+
+.g4-stage {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 2px solid #ccc;
+  color: #333;
+}
+.g4-stage-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: #e8e8e8;
+  border-bottom: 1px solid #ccc;
+}
+.g4-flag {
+  background: #4CBF4F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.35rem 0.65rem;
+  font-weight: 800;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.g4-flag:disabled { opacity: 0.5; cursor: not-allowed; }
+.g4-stage-title { font-size: 0.75rem; font-weight: 700; color: #666; }
+.g4-stage-inner {
+  position: relative;
+  min-height: 200px;
+  background: linear-gradient(180deg, #6FC5FF 0%, #6FC5FF 55%, #6FC54A 55%, #5CB338 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+}
+.g4-sprite {
+  position: absolute;
+  bottom: 28%;
+  left: 12%;
+  font-size: 3.5rem;
+}
+.g4-test-image {
+  font-size: 4rem;
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin-bottom: 0.5rem;
+}
+.g4-speech {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  max-width: 160px;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #333;
+}
+.g4-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 20px;
+  border: 6px solid transparent;
+  border-top-color: #333;
+}
+.g4-speech.ok { border-color: var(--green); color: var(--green); }
+.g4-speech.bad { border-color: var(--pink); color: var(--pink); }
+
+.g4-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.g4-palette, .g4-script-area {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+}
+.g4-palette-title, .g4-script-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+.g4-palette-list, .g4-script {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+.g4-script {
+  min-height: 120px;
+}
+.g4-script-empty {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.g4-script .scratch-block.in-script {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.g4-remove {
+  opacity: 0.6;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+.g4-clear-btn {
+  margin-top: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+}
+.g4-scratch-tip {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.g4-scratch-tip a { color: var(--cyan-lt); }

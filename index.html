@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jak działa AI? — Interaktywna strona dla uczniów</title>
+  <meta name="description" content="Dowiedz się jak działa sztuczna inteligencja! Gry, quizy i informacje dla uczniów w wieku 10-12 lat. Learn how AI works through games and quizzes!">
+  <meta name="keywords" content="AI, sztuczna inteligencja, nauka, dzieci, uczniowie, gry, quiz, machine learning">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/games.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🤖</text></svg>">
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar" role="navigation" aria-label="Główna nawigacja">
+  <div class="container">
+    <a class="nav-logo" href="#hero" data-scroll-target="hero">
+      <span>🤖</span> Aiki AI
+    </a>
+    <ul class="nav-links">
+      <li><a href="#info"         data-section="info"         data-scroll-target="info"         data-i18n="nav_info">Informacje</a></li>
+      <li><a href="#programming"  data-section="programming"  data-scroll-target="programming"  data-i18n="nav_prog">Programowanie</a></li>
+      <li><a href="#tutorial"      data-section="tutorial"      data-scroll-target="tutorial"      data-i18n="nav_tutorial">Tutorial</a></li>
+      <li><a href="#games"        data-section="games"        data-scroll-target="games"        data-i18n="nav_games">Gry</a></li>
+      <li><a href="#quiz-section" data-section="quiz-section" data-scroll-target="quiz-section" data-i18n="nav_quiz">Quiz</a></li>
+    </ul>
+    <button type="button" id="lang-toggle" aria-label="Zmień język / Change language">🇬🇧 EN</button>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero" class="section">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Text -->
+      <div class="hero-text">
+        <h1 class="gradient-text" data-i18n="hero_title">Poznaj Sztuczną Inteligencję!</h1>
+        <p data-i18n="hero_subtitle">AI to program, który uczy się sam — tak jak Ty uczysz się jeździć na rowerze!</p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-primary" data-scroll-target="info" data-i18n="hero_btn_info">📚 Dowiedz się więcej</button>
+          <button type="button" class="btn btn-accent"  data-scroll-target="games" data-i18n="hero_btn_games">🎮 Zagraj!</button>
+          <button type="button" class="btn btn-secondary" data-scroll-target="quiz-section" data-i18n="hero_btn_quiz">❓ Rozwiąż quiz</button>
+        </div>
+      </div>
+
+      <!-- Aiki mascot SVG -->
+      <div class="hero-aiki">
+        <div class="aiki-wrapper">
+          <div class="aiki-bubble" data-i18n="hero_aiki_bubble">Cześć! Jestem Aiki. Pokażę Ci jak działam!</div>
+
+          <!-- Aiki SVG Robot -->
+          <svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Aiki robot mascot">
+            <!-- Antenna -->
+            <rect x="134" y="20" width="12" height="30" rx="6" fill="#7C3AED"/>
+            <circle cx="140" cy="16" r="10" fill="#FBBF24"/>
+            <circle cx="140" cy="16" r="5" fill="#F97316"/>
+
+            <!-- Head -->
+            <rect x="80" y="48" width="120" height="90" rx="24" fill="#3D2B7A"/>
+            <rect x="86" y="54" width="108" height="78" rx="20" fill="#2D1F5E"/>
+
+            <!-- Eyes -->
+            <rect x="102" y="70" width="32" height="32" rx="10" fill="#06B6D4"/>
+            <rect x="146" y="70" width="32" height="32" rx="10" fill="#06B6D4"/>
+            <!-- Eye pupils -->
+            <ellipse class="aiki-eye" cx="118" cy="86" rx="8" ry="9" fill="#0E7490"/>
+            <ellipse class="aiki-eye" cx="162" cy="86" rx="8" ry="9" fill="#0E7490"/>
+            <!-- Eye shine -->
+            <circle cx="122" cy="82" r="3" fill="white" opacity="0.8"/>
+            <circle cx="166" cy="82" r="3" fill="white" opacity="0.8"/>
+
+            <!-- Mouth / smile -->
+            <path d="M112 115 Q140 132 168 115" stroke="#FBBF24" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+            <!-- Cheek blush -->
+            <ellipse cx="100" cy="112" rx="10" ry="6" fill="#EC4899" opacity="0.4"/>
+            <ellipse cx="180" cy="112" rx="10" ry="6" fill="#EC4899" opacity="0.4"/>
+
+            <!-- Neck -->
+            <rect x="126" y="138" width="28" height="16" rx="6" fill="#3D2B7A"/>
+
+            <!-- Body -->
+            <rect x="70" y="154" width="140" height="90" rx="20" fill="#3D2B7A"/>
+            <rect x="78" y="162" width="124" height="74" rx="16" fill="#2D1F5E"/>
+
+            <!-- Chest screen -->
+            <rect x="96" y="174" width="88" height="50" rx="10" fill="#1A1035"/>
+            <!-- Screen glow bars -->
+            <rect x="104" y="182" width="30" height="6" rx="3" fill="#7C3AED" opacity="0.8"/>
+            <rect x="104" y="192" width="50" height="6" rx="3" fill="#06B6D4" opacity="0.7"/>
+            <rect x="104" y="202" width="20" height="6" rx="3" fill="#FBBF24" opacity="0.9"/>
+            <rect x="104" y="212" width="40" height="6" rx="3" fill="#10B981" opacity="0.7"/>
+            <!-- Heart -->
+            <text x="152" y="208" font-size="14" text-anchor="middle">❤️</text>
+
+            <!-- Left arm -->
+            <rect x="36" y="158" width="36" height="70" rx="18" fill="#3D2B7A"/>
+            <!-- Left hand -->
+            <circle cx="54" cy="234" r="14" fill="#2D1F5E"/>
+            <!-- Thumb up! -->
+            <text x="54" y="240" font-size="16" text-anchor="middle">👍</text>
+
+            <!-- Right arm -->
+            <rect x="208" y="158" width="36" height="70" rx="18" fill="#3D2B7A"/>
+            <!-- Right hand wave -->
+            <circle cx="226" cy="234" r="14" fill="#2D1F5E"/>
+            <text x="226" y="240" font-size="16" text-anchor="middle">👋</text>
+
+            <!-- Legs -->
+            <rect x="96" y="244" width="36" height="26" rx="10" fill="#3D2B7A"/>
+            <rect x="148" y="244" width="36" height="26" rx="10" fill="#3D2B7A"/>
+            <!-- Feet -->
+            <rect x="88" y="264" width="46" height="14" rx="8" fill="#5B21B6"/>
+            <rect x="146" y="264" width="46" height="14" rx="8" fill="#5B21B6"/>
+
+            <!-- Bolts on body -->
+            <circle cx="86" cy="170" r="4" fill="#7C3AED" opacity="0.6"/>
+            <circle cx="194" cy="170" r="4" fill="#7C3AED" opacity="0.6"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== INFO CARDS ==================== -->
+<section id="info" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 data-i18n="cards_title">Czym jest AI?</h2>
+      <p data-i18n="cards_subtitle">Kliknij kartę, żeby dowiedzieć się więcej!</p>
+    </div>
+
+    <div class="cards-grid reveal">
+
+      <!-- Card 1 -->
+      <article class="info-card" tabindex="0" role="button" aria-label="Karta: Co to jest AI?">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">
+              <!-- Brain + bulb SVG -->
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <ellipse cx="28" cy="36" rx="20" ry="18" fill="#7C3AED" opacity="0.8"/>
+                <ellipse cx="28" cy="36" rx="14" ry="12" fill="#5B21B6"/>
+                <!-- Wrinkles -->
+                <path d="M16 32 Q22 28 28 32 Q34 36 40 32" stroke="#A855F7" stroke-width="2" fill="none"/>
+                <path d="M18 40 Q24 44 30 40" stroke="#A855F7" stroke-width="2" fill="none"/>
+                <!-- Lightbulb -->
+                <circle cx="44" cy="18" r="12" fill="#FBBF24"/>
+                <rect x="40" y="28" width="8" height="6" rx="2" fill="#F97316"/>
+                <path d="M40 28 Q44 24 48 28" stroke="#F97316" stroke-width="1.5" fill="none"/>
+                <!-- Rays -->
+                <line x1="44" y1="4"  x2="44" y2="1"  stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+                <line x1="56" y1="18" x2="59" y2="18" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+                <line x1="32" y1="18" x2="29" y2="18" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+                <line x1="52" y1="8"  x2="54" y2="6"  stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+                <line x1="36" y1="8"  x2="34" y2="6"  stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 data-i18n="card1_front">Co to jest AI?</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="card1_front">Co to jest AI?</div>
+            <p data-i18n="card1_back">Sztuczna inteligencja (AI) to program komputerowy, który potrafi się uczyć i rozwiązywać problemy — podobnie jak człowiek, ale używając danych i matematyki!</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <!-- Stack of books -->
+                <rect x="8"  y="44" width="48" height="10" rx="3" fill="#7C3AED"/>
+                <rect x="10" y="34" width="44" height="10" rx="3" fill="#06B6D4"/>
+                <rect x="12" y="24" width="40" height="10" rx="3" fill="#EC4899"/>
+                <!-- Arrow -->
+                <path d="M32 20 L32 8" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+                <path d="M26 12 L32 6 L38 12" stroke="#FBBF24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <!-- Robot head small -->
+                <rect x="44" y="4" width="16" height="14" rx="4" fill="#3D2B7A"/>
+                <circle cx="48" cy="10" r="2" fill="#06B6D4"/>
+                <circle cx="56" cy="10" r="2" fill="#06B6D4"/>
+              </svg>
+            </div>
+            <h3 data-i18n="card2_front">Jak AI się uczy?</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="card2_front">Jak AI się uczy?</div>
+            <p data-i18n="card2_back">AI uczy się przez przykłady! Pokazujemy jej tysiące zdjęć kotów, aż sama nauczy się rozpoznawać koty. Im więcej przykładów, tym mądrzejsza AI!</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <!-- Photo frame -->
+                <rect x="6" y="12" width="40" height="36" rx="5" fill="#2D1F5E" stroke="#7C3AED" stroke-width="2"/>
+                <!-- Cat in photo -->
+                <text x="26" y="36" font-size="22" text-anchor="middle">🐱</text>
+                <!-- Magnifying glass -->
+                <circle cx="46" cy="42" r="14" fill="none" stroke="#FBBF24" stroke-width="3"/>
+                <line x1="56" y1="52" x2="63" y2="59" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+                <!-- Check inside glass -->
+                <path d="M40 42 L44 46 L52 38" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <h3 data-i18n="card3_front">Rozpoznawanie obrazów</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="card3_front">Rozpoznawanie obrazów</div>
+            <p data-i18n="card3_back">AI potrafi "zobaczyć" zdjęcie i powiedzieć co na nim jest — pies, kot, jabłko. Robi to analizując kolory i kształty pikseli na zdjęciu.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <!-- Chat bubble human -->
+                <rect x="4" y="8" width="36" height="22" rx="8" fill="#06B6D4"/>
+                <path d="M8 30 L4 38 L18 30" fill="#06B6D4"/>
+                <circle cx="14" cy="20" r="2.5" fill="white"/>
+                <circle cx="22" cy="20" r="2.5" fill="white"/>
+                <circle cx="30" cy="20" r="2.5" fill="white"/>
+                <!-- Chat bubble robot -->
+                <rect x="24" y="36" width="36" height="22" rx="8" fill="#7C3AED"/>
+                <path d="M56 58 L60 38 L46 58" fill="#7C3AED"/>
+                <!-- Robot eyes small -->
+                <rect x="32" y="44" width="6" height="6" rx="2" fill="#FBBF24"/>
+                <rect x="42" y="44" width="6" height="6" rx="2" fill="#FBBF24"/>
+                <!-- Small mouth -->
+                <path d="M34 54 Q42 58 50 54" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 data-i18n="card4_front">Chatboty</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="card4_front">Chatboty</div>
+            <p data-i18n="card4_back">Chatbot to AI, która rozmawia z ludźmi przez tekst lub głos. Asystent Siri czy Google to właśnie chatboty — rozumieją Twoje pytania i odpowiadają!</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <!-- Controller body -->
+                <rect x="8" y="20" width="48" height="28" rx="12" fill="#3D2B7A"/>
+                <!-- D-pad -->
+                <rect x="16" y="30" width="6" height="16" rx="2" fill="#7C3AED"/>
+                <rect x="12" y="34" width="14" height="6" rx="2"  fill="#7C3AED"/>
+                <!-- Buttons right -->
+                <circle cx="44" cy="30" r="4" fill="#EC4899"/>
+                <circle cx="52" cy="34" r="4" fill="#FBBF24"/>
+                <circle cx="44" cy="38" r="4" fill="#10B981"/>
+                <circle cx="36" cy="34" r="4" fill="#06B6D4"/>
+                <!-- Screen small in center -->
+                <rect x="26" y="30" width="12" height="8" rx="3" fill="#1A1035"/>
+                <text x="32" y="37" font-size="6" text-anchor="middle" fill="#FBBF24">AI</text>
+                <!-- Analog sticks suggestion -->
+                <circle cx="20" cy="44" r="3" fill="#5B21B6"/>
+                <circle cx="44" cy="44" r="3" fill="#5B21B6"/>
+              </svg>
+            </div>
+            <h3 data-i18n="card5_front">AI w grach</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="card5_front">AI w grach</div>
+            <p data-i18n="card5_back">W grach komputerowych AI steruje postaciami, które grają przeciwko Tobie! Ta AI uczy się Twoich ruchów i stara się wygrać. W szachach AI bije nawet mistrzów świata!</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <!-- Scale beam -->
+                <rect x="28" y="14" width="8" height="36" rx="3" fill="#5B21B6"/>
+                <rect x="10" y="14" width="44" height="6" rx="3" fill="#7C3AED"/>
+                <!-- Left pan -->
+                <rect x="4" y="36" width="24" height="14" rx="6" fill="#06B6D4"/>
+                <!-- Robot icon on left -->
+                <text x="16" y="47" font-size="10" text-anchor="middle">🤖</text>
+                <!-- Right pan (lower = heavier) -->
+                <rect x="36" y="44" width="24" height="14" rx="6" fill="#EC4899"/>
+                <!-- Human icon on right -->
+                <text x="48" y="55" font-size="10" text-anchor="middle">🧠</text>
+                <!-- Stand -->
+                <rect x="30" y="50" width="4" height="12" rx="2" fill="#5B21B6"/>
+                <rect x="22" y="60" width="20" height="4" rx="2" fill="#3D2B7A"/>
+              </svg>
+            </div>
+            <h3 data-i18n="card6_front">Czy AI jest mądra?</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="card6_front">Czy AI jest mądra?</div>
+            <p data-i18n="card6_back">AI jest bardzo dobra w jednym zadaniu, ale nie rozumie świata jak człowiek. Może liczyć milion razy szybciej, ale nie wie jak smakuje lody. To różni ją od człowieka!</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AI PROGRAMMING ==================== -->
+<section id="programming" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 data-i18n="prog_title">Programowanie sztucznej inteligencji</h2>
+      <p data-i18n="prog_subtitle">AI też da się „programować” — ucząc ją na przykładach i dając proste instrukcje!</p>
+    </div>
+
+    <div class="prog-grid reveal">
+      <!-- Cards -->
+      <div class="cards-grid prog-cards">
+        <article class="info-card" tabindex="0" role="button">
+          <div class="info-card-inner">
+            <div class="card-front">
+              <div class="card-icon">💻</div>
+              <h3 data-i18n="card7_front">Jak programować AI?</h3>
+              <span class="card-hint">👆 kliknij</span>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title" data-i18n="card7_front">Jak programować AI?</div>
+              <p data-i18n="card7_back">Programowanie AI to: zebranie przykładów (zdjęcia, teksty), trenowanie modelu i używanie go w programie. Nie musisz pisać skomplikowanego kodu — w Scratchu łączysz kolorowe bloczki!</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="info-card" tabindex="0" role="button">
+          <div class="info-card-inner">
+            <div class="card-front">
+              <div class="card-icon">🐱</div>
+              <h3 data-i18n="card8_front">Scratch + AI</h3>
+              <span class="card-hint">👆 kliknij</span>
+            </div>
+            <div class="card-back">
+              <div class="card-back-title" data-i18n="card8_front">Scratch + AI</div>
+              <p data-i18n="card8_back">W Scratchu możesz dodać rozszerzenie „Machine Learning for Kids”. Uczysz komputer rozpoznawać obrazy i reagować — np. gdy widzi kota, mówi „Miau!”. To prawdziwe AI w grze lub animacji!</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Steps -->
+      <div class="prog-steps">
+        <h3 data-i18n="prog_steps_title">4 kroki do własnego AI w Scratchu</h3>
+        <ol class="prog-step-list">
+          <li><span class="prog-step-num">1</span><span data-i18n="prog_step1">Zbierz przykłady — np. 10 zdjęć kota i 10 psa (emoji też działają!)</span></li>
+          <li><span class="prog-step-num">2</span><span data-i18n="prog_step2">Wytrenuj model — Scratch „uczy się” rozpoznawać wzory</span></li>
+          <li><span class="prog-step-num">3</span><span data-i18n="prog_step3">Dodaj bloczki: gdy rozpoznasz obraz → powiedz lub zrób coś</span></li>
+          <li><span class="prog-step-num">4</span><span data-i18n="prog_step4">Przetestuj! Pokaż nowe zdjęcie i zobacz, co AI odpowie</span></li>
+        </ol>
+      </div>
+
+      <!-- Static Scratch example -->
+      <div class="prog-example">
+        <h3 data-i18n="prog_example_title">Przykład programu w Scratchu</h3>
+        <p class="prog-example-desc" data-i18n="prog_example_desc">Tak może wyglądać prosty projekt rozpoznawania zwierząt:</p>
+        <div class="scratch-demo">
+          <div class="scratch-block block-event" data-i18n="prog_demo_block1">gdy kliknięto 🚩</div>
+          <div class="scratch-block block-ml" data-i18n="prog_demo_block2">wytrenuj model ze zdjęć 🐱 i 🐶</div>
+          <div class="scratch-block block-ml" data-i18n="prog_demo_block3">rozpoznaj obraz z kamery</div>
+          <div class="scratch-block block-event" data-i18n="prog_demo_block4">gdy rozpoznano 🐱</div>
+          <div class="scratch-block block-looks" data-i18n="prog_demo_block5">powiedz „Miau! To kot!” przez 2 sek.</div>
+          <div class="scratch-block block-event" data-i18n="prog_demo_block6">gdy rozpoznano 🐶</div>
+          <div class="scratch-block block-looks" data-i18n="prog_demo_block7">powiedz „Hau! To pies!” przez 2 sek.</div>
+        </div>
+        <p class="prog-scratch-note" data-i18n="prog_scratch_note">Wypróbuj to sam w grze „Laboratorium Scratch” poniżej albo na stronie ML for Kids!</p>
+        <button type="button" class="btn btn-accent" data-scroll-target="games" data-i18n="prog_btn_game">🎮 Zagraj w Laboratorium Scratch</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TUTORIAL: SIMPLE AI IN HTML/JS ==================== -->
+<section id="tutorial" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 data-i18n="tutorial_title">Twój pierwszy program AI w HTML i JavaScript</h2>
+      <p data-i18n="tutorial_subtitle">Zbuduj prosty klasyfikator k-NN, który uczy się rozpoznawać punkty na płaszczyźnie!</p>
+    </div>
+
+    <!-- Explanation cards -->
+    <div class="cards-grid reveal">
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">🎯</div>
+            <h3 data-i18n="tut_card1_front">Czym jest k-NN?</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="tut_card1_front">Czym jest k-NN?</div>
+            <p data-i18n="tut_card1_back">k-NN (k-Nearest Neighbors) to prosty algorytm: nowy punkt sprawdza, którzy są jego k najbliższych sąsiadów i głosuje tak jak oni!</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">🧮</div>
+            <h3 data-i18n="tut_card2_front">Jak to działa?</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="tut_card2_front">Jak to działa?</div>
+            <p data-i18n="tut_card2_back">Mierzymy odległość (Pitagoras!) od nowego punktu do wszystkich znanych. Wybieramy k najbliższych i sprawdzamy, do jakiej grupy większość należy.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">💻</div>
+            <h3 data-i18n="tut_card3_front">Kod w 30 liniach!</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="tut_card3_front">Kod w 30 liniach!</div>
+            <p data-i18n="tut_card3_back">Cały algorytm k-NN mieści się w kilkudziesięciu liniach JavaScript. Zobaczysz to na żywo poniżej — możesz skopiować kod i badać go sam!</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Interactive Demo -->
+    <div class="prog-example reveal" style="margin-top: 2rem;">
+      <h3 data-i18n="tut_demo_title">🎮 Interaktywna demo: Rysuj punkty i ucz AI!</h3>
+      <p class="prog-example-desc" data-i18n="tut_demo_desc">Klikaj na planszę, by dodać punkty dwóch kolorów. AI uczy się na Twoich przykładach i od razu przewiduje kolor nowych punktów!</p>
+
+      <div class="tutorial-demo" style="text-align: center;">
+        <!-- Color selectors -->
+        <div class="tut-controls" style="margin-bottom: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary" id="tut-color-red" data-color="red" style="background: linear-gradient(135deg, #EC4899, #F97316);">
+            <span id="tut-red-indicator" class="color-indicator" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#EC4899;margin-right:0.5rem"></span>
+            <span data-i18n="tut_color_red">Czerwony</span>
+          </button>
+          <button type="button" class="btn btn-primary" id="tut-color-blue" data-color="blue" style="background: linear-gradient(135deg, #06B6D4, #7C3AED);">
+            <span id="tut-blue-indicator" class="color-indicator" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#06B6D4;margin-right:0.5rem"></span>
+            <span data-i18n="tut_color_blue">Niebieski</span>
+          </button>
+          <button type="button" class="btn btn-secondary" id="tut-clear" data-i18n="tut_clear">🗑️ Wyczyść</button>
+        </div>
+
+        <!-- Canvas -->
+        <div style="position: relative; display: inline-block;">
+          <canvas id="tut-canvas" width="600" height="400" style="border: 2px solid var(--border); border-radius: var(--radius); background: var(--bg3); cursor: crosshair; box-shadow: var(--shadow);"></canvas>
+          <!-- Legend overlay -->
+          <div id="tut-legend" style="position: absolute; top: 10px; right: 10px; background: rgba(15,10,30,0.9); padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid var(--border); font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 140px;">
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <span style="width:12px;height:12px;border-radius:50%;background:#EC4899"></span>
+              <span data-i18n="tut_legend_red">Czerwona klasa</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <span style="width:12px;height:12px;border-radius:50%;background:#06B6D4"></span>
+              <span data-i18n="tut_legend_blue">Niebieska klasa</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.5rem;opacity:0.7">
+              <span style="width:12px;height:12px;border-radius:50%;background:#FBBF24"></span>
+              <span data-i18n="tut_legend_pred">Przewidywanie AI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="tut-stats" style="margin-top: 1rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-muted);">
+          <span><strong id="tut-count-red" data-i18n="tut_stat_red">Czerwone: 0</strong></span>
+          <span><strong id="tut-count-blue" data-i18n="tut_stat_blue">Niebieskie: 0</strong></span>
+          <span><strong id="tut-k-value" data-i18n="tut_stat_k">k = 3</strong></span>
+        </div>
+
+        <!-- k slider -->
+        <div style="margin-top: 1rem; max-width: 300px; margin-left: auto; margin-right: auto;">
+          <label style="display:flex;align-items:center;gap:0.5rem;color:var(--text-muted);font-size:0.9rem">
+            <span data-i18n="tut_k_label">Liczba sąsiadów (k):</span>
+            <input type="range" id="tut-k-slider" min="1" max="15" value="3" style="flex:1;accent-color:var(--purple)">
+            <span id="tut-k-display" style="min-width:2rem;text-align:center;font-weight:800;color:var(--purple-lt)">3</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Explanation -->
+    <div class="prog-example reveal" style="margin-top: 2rem; text-align: left;">
+      <h3 data-i18n="tut_code_title">💡 Jak to działa w kodzie?</h3>
+      <p class="prog-example-desc" data-i18n="tut_code_desc">Oto kompletny, działający kod algorytmu k-NN. Skopiuj go do pliku <code>index.html</code> i otwórz w przeglądarce!</p>
+
+      <div class="code-block" style="background: #1A1035; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; overflow-x: auto; font-family: 'Fira Code', 'Monaco', monospace; font-size: 0.85rem; line-height: 1.6;">
+        <pre style="margin:0;color:var(--text)"><code><span style="color:#A855F7">&lt;!</span><span style="color:#FBBF24">DOCTYPE</span> <span style="color:#06B6D4">html</span><span style="color:#A855F7">&gt;</span>
+<span style="color:#A855F7">&lt;html</span> <span style="color:#FBBF24">lang</span>=<span style="color:#FDE68A">"pl"</span><span style="color:#A855F7">&gt;</span>
+<span style="color:#A855F7">&lt;head&gt;</span>
+  <span style="color:#A855F7">&lt;meta</span> <span style="color:#FBBF24">charset</span>=<span style="color:#FDE68A">"UTF-8"</span><span style="color:#A855F7">&gt;</span>
+  <span style="color:#A855F7">&lt;title&gt;</span>Mój pierwszy AI<span style="color:#A855F7">&lt;/title&gt;</span>
+  <span style="color:#A855F7">&lt;style&gt;</span>
+    <span style="color:#06B6D4">canvas</span> { <span style="color:#FBBF24">border</span>: <span style="color:#FDE68A">2px solid #7C3AED</span>; <span style="color:#FBBF24">border-radius</span>: <span style="color:#FDE68A">12px</span>; <span style="color:#FBBF24">background</span>: <span style="color:#FDE68A">#1A1035</span>; }
+  <span style="color:#A855F7">&lt;/style&gt;</span>
+<span style="color:#A855F7">&lt;/head&gt;</span>
+<span style="color:#A855F7">&lt;body</span> <span style="color:#FBBF24">style</span>=<span style="color:#FDE68A">"font-family:sans-serif;text-align:center;padding:2rem;background:#0F0A1E;color:#F1F0FF"</span><span style="color:#A855F7">&gt;</span>
+  <span style="color:#A855F7">&lt;h1&gt;</span>🤖 k-NN Demo<span style="color:#A855F7">&lt;/h1&gt;</span>
+  <span style="color:#A855F7">&lt;canvas</span> <span style="color:#FBBF24">id</span>=<span style="color:#FDE68A">"c"</span> <span style="color:#FBBF24">width</span>=<span style="color:#FDE68A">"500"</span> <span style="color:#FBBF24">height</span>=<span style="color:#FDE68A">"350"</span><span style="color:#A855F7">&gt;&lt;/canvas&gt;</span>
+  <span style="color:#A855F7">&lt;br&gt;&lt;button</span> <span style="color:#FBBF24">onclick</span>=<span style="color:#FDE68A">"clearPoints()"</span><span style="color:#A855F7">&gt;</span>Wyczyść<span style="color:#A855F7">&lt;/button&gt;</span>
+  <span style="color:#A855F7">&lt;script&gt;</span>
+<span style="color:#06B6D4">// Dane treningowe: [{x, y, color}, ...]</span>
+<span style="color:#FBBF24">const</span> points = [];
+<span style="color:#FBBF24">let</span> currentColor = <span style="color:#FDE68A">'red'</span>;
+<span style="color:#FBBF24">const</span> k = <span style="color:#FDE68A">3</span>;
+
+<span style="color:#06B6D4">// Odległość euklidesowa (twierdzenie Pitagorasa!)</span>
+<span style="color:#FBBF24">function</span> <span style="color:#FDE68A">dist</span>(a, b) {
+  <span style="color:#FBBF24">return</span> <span style="color:#FDE68A">Math.hypot</span>(a.x - b.x, a.y - b.y);
+}
+
+<span style="color:#06B6D4">// Główna funkcja AI: przewiduje kolor punktu</span>
+<span style="color:#FBBF24">function</span> <span style="color:#FDE68A">predict</span>(x, y) {
+  <span style="color:#06B6D4">// 1. Oblicz odległości do WSZYSTKICH punktów treningowych</span>
+  <span style="color:#FBBF24">const</span> distances = points.map(p => ({ color: p.color, d: dist(p, {x, y}) }));
+
+  <span style="color:#06B6D4">// 2. Posortuj od najbliższego</span>
+  distances.sort((a, b) => a.d - b.d);
+
+  <span style="color:#06B6D4">// 3. Weź k najbliższych sąsiadów</span>
+  <span style="color:#FBBF24">const</span> neighbors = distances.slice(0, k);
+
+  <span style="color:#06B6D4">// 4. Głosowanie większościowe</span>
+  <span style="color:#FBBF24">const</span> redVotes = neighbors.filter(n => n.color === <span style="color:#FDE68A">'red'</span>).length;
+  <span style="color:#FBBF24">return</span> redVotes > k/2 ? <span style="color:#FDE68A">'red'</span> : <span style="color:#FDE68A">'blue'</span>;
+}
+
+<span style="color:#06B6D4">// Rysowanie: punkty treningowe + siatka przewidywań</span>
+<span style="color:#FBBF24">function</span> <span style="color:#FDE68A">draw</span>() {
+  <span style="color:#FBBF24">const</span> ctx = c.getContext(<span style="color:#FDE68A">'2d'</span>);
+  ctx.clearRect(0, 0, c.width, c.height);
+
+  <span style="color:#06B6D4">// Siatka: pokaż co AI "myśli" o każdym punkcie</span>
+  <span style="color:#FBBF24">for</span> (<span style="color:#FBBF24">let</span> x = 0; x < c.width; x += <span style="color:#FDE68A">20</span>)
+    <span style="color:#FBBF24">for</span> (<span style="color:#FBBF24">let</span> y = 0; y < c.height; y += <span style="color:#FDE68A">20</span>) {
+      <span style="color:#FBBF24">const</span> pred = predict(x, y);
+      ctx.fillStyle = pred === <span style="color:#FDE68A">'red'</span> ? <span style="color:#FDE68A">'rgba(236,72,153,0.1)'</span> : <span style="color:#FDE68A">'rgba(6,182,212,0.1)'</span>;
+      ctx.fillRect(x, y, 20, 20);
+    }
+
+  <span style="color:#06B6D4">// Punkty treningowe</span>
+  points.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, <span style="color:#FDE68A">8</span>, 0, <span style="color:#FDE68A">Math.PI*2</span>);
+    ctx.fillStyle = p.color === <span style="color:#FDE68A">'red'</span> ? <span style="color:#FDE68A">'#EC4899'</span> : <span style="color:#FDE68A">'#06B6D4'</span>;
+    ctx.fill();
+    ctx.strokeStyle = <span style="color:#FDE68A">'#fff'</span>; ctx.lineWidth = <span style="color:#FDE68A">2</span>; ctx.stroke();
+  });
+}
+
+<span style="color:#06B6D4">// Kliknięcie = dodaj punkt treningowy</span>
+c.onclick = e => {
+  <span style="color:#FBBF24">const</span> rect = c.getBoundingClientRect();
+  points.push({ x: e.clientX - rect.left, y: e.clientY - rect.top, color: currentColor });
+  draw();
+};
+
+<span style="color:#06B6D4">// Zmiana koloru</span>
+<span style="color:#FBBF24">function</span> <span style="color:#FDE68A">setColor</span>(c) { currentColor = c; }
+<span style="color:#FBBF24">function</span> <span style="color:#FDE68A">clearPoints</span>() { points.length = 0; draw(); }
+
+draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
+  <span style="color:#A855F7">&lt;/script&gt;</span>
+<span style="color:#A855F7">&lt;/body&gt;</span>
+<span style="color:#A855F7">&lt;/html&gt;</span></code></pre>
+      </div>
+
+      <button type="button" class="btn btn-accent" id="tut-copy-code" style="margin-top: 1rem;" data-i18n="tut_copy_btn">📋 Skopiuj kod do schowka</button>
+      <p id="tut-copy-msg" style="margin-top: 0.5rem; color: var(--green); font-weight: 700; display: none;" data-i18n="tut_copy_success">Skopiowano! Wklej do pliku .html i otwórz w przeglądarce.</p>
+    </div>
+
+    <!-- Key Concepts -->
+    <div class="prog-steps reveal" style="margin-top: 2rem;">
+      <h3 data-i18n="tut_concepts_title">🔑 Kluczowe pojęcia, które się tu uczysz</h3>
+      <ol class="prog-step-list">
+        <li><span class="prog-step-num">1</span><span data-i18n="tut_concept1"><strong>Dane treningowe</strong> = punkty, które Ty "nauczasz" AI (klikasz je sam!)</span></li>
+        <li><span class="prog-step-num">2</span><span data-i18n="tut_concept2"><strong>Cecha (feature)</strong> = tutaj po prostu współrzędne X i Y punktu</span></li>
+        <li><span class="prog-step-num">3</span><span data-i18n="tut_concept3"><strong>Odległość euklidesowa</strong> = pierwiastek z (Δx² + Δy²) — twierdzenie Pitagorasa!</span></li>
+        <li><span class="prog-step-num">4</span><span data-i18n="tut_concept4"><strong>Parametr k</strong> = ile sąsiadów bierze pod uwagę (małe k = niestabilne, duże = rozmyte)</span></li>
+        <li><span class="prog-step-num">5</span><span data-i18n="tut_concept5"><strong>Głosowanie większościowe</strong> = klasa, która ma więcej głosów wśród sąsiadów, wygrywa</span></li>
+        <li><span class="prog-step-num">6</span><span data-i18n="tut_concept6"><strong>Granica decyzyjna</strong> = linia (tutaj: kolorowe tło), gdzie AI zmienia zdanie</span></li>
+      </ol>
+    </div>
+
+    <!-- Experiment Ideas -->
+    <div class="prog-example reveal" style="margin-top: 2rem; text-align: left;">
+      <h3 data-i18n="tut_experiments_title">🧪 Eksperymenty do wypróbowania</h3>
+      <ul style="line-height: 2; color: var(--text-muted); font-weight: 600;">
+        <li data-i18n="tut_exp1">Ustal k=1 i zobacz, jak granica staje się "zackata" (overfitting)</li>
+        <li data-i18n="tut_exp2">Ustal k=15 i zobacz, jak granica się wygładza (underfitting)</li>
+        <li data-i18n="tut_exp3">Dodaj tylko punkty czerwone w jednym rogu — co AI przewiduje w środku?</li>
+        <li data-i18n="tut_exp4">Stwórz "wyspę" niebieskich punktów w morzu czerwonych — czy AI to rozpozna?</li>
+        <li data-i18n="tut_exp5">Dodaj po 20 punktów każdego koloru, potem usuń kilka — jak zmienia się granica?</li>
+      </ul>
+    </div>
+
+    <div class="prog-example reveal" style="margin-top: 2rem; text-align: center;">
+      <p class="prog-example-desc" data-i18n="tut_next_steps">Chcesz więcej? Spróbuj dodać trzecią klasę (zieloną), albo zmień odległość na <strong>Manhattan</strong> (|Δx| + |Δy|)!</p>
+      <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 1rem;" data-i18n="tut_more_link">🔗 Znajdź więcej tutoriali na GitHubie</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== GAMES ==================== -->
+<section id="games" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 data-i18n="games_title">Gry z AI</h2>
+      <p data-i18n="games_subtitle">Ucz się przez zabawę! Ukończ grę, żeby odblokować następną.</p>
+    </div>
+
+    <!-- Game selection cards -->
+    <div class="games-grid reveal">
+
+      <!-- Game 1 -->
+      <div class="game-card" data-game="game1">
+        <div class="game-card-icon">🤖</div>
+        <h3 data-i18n="game1_title">Naucz Aikiego!</h3>
+        <p class="desc" data-i18n="game1_desc">Pokaż Aikiemu przykłady i naucz go rozpoznawać koty i psy.</p>
+        <div class="game-concept" data-i18n="game1_concept">🧠 Uczysz się o: Machine Learning</div>
+        <div class="score-badge" data-score-badge="game1"></div>
+        <button type="button" class="btn btn-primary" data-open-game="1" data-i18n="game1_btn">Zagraj!</button>
+      </div>
+
+      <!-- Game 2 -->
+      <div class="game-card" data-game="game2">
+        <div class="game-card-icon">🗂️</div>
+        <h3 data-i18n="game2_title">Sortownia Danych</h3>
+        <p class="desc" data-i18n="game2_desc">Przeciągaj dane do właściwych koszyków — pomóż AI je posortować!</p>
+        <div class="game-concept" data-i18n="game2_concept">🧠 Uczysz się o: Klasyfikacja danych</div>
+        <div class="score-badge" data-score-badge="game2"></div>
+        <button type="button" class="btn btn-primary" data-open-game="2" data-i18n="game2_btn">Zagraj!</button>
+        <div class="lock-overlay">
+          <span style="font-size:2rem">🔒</span>
+          <span data-i18n="game2_locked">Ukończ "Naucz Aikiego!" żeby odblokować</span>
+        </div>
+      </div>
+
+      <!-- Game 3 -->
+      <div class="game-card" data-game="game3">
+        <div class="game-card-icon">🌀</div>
+        <h3 data-i18n="game3_title">Labirynt Aikiego</h3>
+        <p class="desc" data-i18n="game3_desc">Zaprogramuj drogę Aikiego przez labirynt używając prostych poleceń.</p>
+        <div class="game-concept" data-i18n="game3_concept">🧠 Uczysz się o: Algorytmy i decyzje</div>
+        <div class="score-badge" data-score-badge="game3"></div>
+        <button type="button" class="btn btn-primary" data-open-game="3" data-i18n="game3_btn">Zagraj!</button>
+        <div class="lock-overlay">
+          <span style="font-size:2rem">🔒</span>
+          <span data-i18n="game3_locked">Ukończ "Sortownię Danych" żeby odblokować</span>
+        </div>
+      </div>
+
+      <!-- Game 4 — Scratch Lab -->
+      <div class="game-card" data-game="game4">
+        <div class="game-card-icon">🐱</div>
+        <h3 data-i18n="game4_title">Laboratorium Scratch</h3>
+        <p class="desc" data-i18n="game4_desc">Układaj bloczki jak w Scratchu i zaprogramuj AI rozpoznawania zwierząt!</p>
+        <div class="game-concept" data-i18n="game4_concept">🧠 Uczysz się o: Programowanie wizualne + AI</div>
+        <div class="score-badge" data-score-badge="game4"></div>
+        <button type="button" class="btn btn-primary" data-open-game="4" data-i18n="game4_btn">Zagraj!</button>
+        <div class="lock-overlay">
+          <span style="font-size:2rem">🔒</span>
+          <span data-i18n="game4_locked">Ukończ „Labirynt Aikiego” żeby odblokować</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Active game area -->
+    <div id="game-area" class="reveal" style="margin-top:2rem">
+      <div id="game-area-title" style="font-size:1.4rem;font-weight:800;margin-bottom:1.5rem;text-align:center"></div>
+      <div style="text-align:center;color:var(--text-muted);padding:2rem">
+        <span style="font-size:3rem">🎮</span>
+        <p style="margin-top:1rem">Wybierz grę powyżej!</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== QUIZ ==================== -->
+<section id="quiz-section" class="section section-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 data-i18n="quiz_title">Quiz wiedzy o AI</h2>
+      <p data-i18n="quiz_subtitle">Sprawdź co wiesz! Trzy poziomy trudności.</p>
+    </div>
+
+    <!-- Level buttons -->
+    <div class="quiz-levels reveal">
+      <button type="button" class="quiz-level-btn active" data-game="quiz1" data-quiz-level="1">
+        🟢 <span data-i18n="quiz_level1">Poziom 1: Podstawy</span>
+        <div class="score-badge" data-score-badge="quiz1" style="font-size:0.75rem;margin-top:0.2rem"></div>
+      </button>
+      <button type="button" class="quiz-level-btn" data-game="quiz2" data-quiz-level="2">
+        🟡 <span data-i18n="quiz_level2">Poziom 2: Uczenie maszynowe</span>
+        <div class="score-badge" data-score-badge="quiz2" style="font-size:0.75rem;margin-top:0.2rem"></div>
+        <div class="lock-overlay" style="border-radius:50px;backdrop-filter:blur(2px)">
+          <span data-i18n="quiz_level2_locked" style="font-size:0.8rem">🔒 Ukończ Poziom 1</span>
+        </div>
+      </button>
+      <button type="button" class="quiz-level-btn" data-game="quiz3" data-quiz-level="3">
+        🔴 <span data-i18n="quiz_level3">Poziom 3: Ekspert AI</span>
+        <div class="score-badge" data-score-badge="quiz3" style="font-size:0.75rem;margin-top:0.2rem"></div>
+        <div class="lock-overlay" style="border-radius:50px;backdrop-filter:blur(2px)">
+          <span data-i18n="quiz_level3_locked" style="font-size:0.8rem">🔒 Ukończ Poziom 2</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Quiz content area -->
+    <div id="quiz-area" class="reveal">
+      <div style="text-align:center;color:var(--text-muted);padding:2rem">
+        <span style="font-size:3rem">❓</span>
+        <p style="margin-top:1rem;font-weight:700">
+          Kliknij poziom trudności powyżej, żeby rozpocząć! /<br>
+          Click a difficulty level above to start!
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer id="footer-section">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem">
+      <h2 data-i18n="footer_title">Chcesz dowiedzieć się więcej?</h2>
+    </div>
+
+    <div class="footer-grid">
+      <!-- Links -->
+      <div>
+        <h3 data-i18n="footer_links_title">Przydatne strony:</h3>
+        <ul>
+          <li><a href="https://code.org" target="_blank" rel="noopener">💻 code.org — nauka programowania</a></li>
+          <li><a href="https://scratch.mit.edu" target="_blank" rel="noopener">🐱 Scratch — twórz własne gry</a></li>
+          <li><a href="https://www.cs.cmu.edu/~112/" target="_blank" rel="noopener">🎓 CS Academy — programowanie</a></li>
+          <li><a href="https://machinelearningforkids.co.uk" target="_blank" rel="noopener">🤖 ML for Kids — AI dla dzieci</a></li>
+        </ul>
+      </div>
+
+      <!-- Facts counters -->
+      <div>
+        <h3>🌍 AI w liczbach / AI in numbers</h3>
+        <div style="display:grid;gap:0.75rem;margin-top:0.5rem">
+          <div class="fact-counter">
+            <div class="fact-number" data-count="1750000000" data-suffix="+" id="fact1">0</div>
+            <div class="fact-label" data-i18n="footer_fact1_label">Linii kodu w ChatGPT:</div>
+          </div>
+          <div class="fact-counter">
+            <div class="fact-number" data-count="5000000000" data-suffix="+" id="fact2">0</div>
+            <div class="fact-label" data-i18n="footer_fact2_label">Zdjęć użytych do trenowania AI:</div>
+          </div>
+          <div class="fact-counter">
+            <div class="fact-number" data-count="100" data-suffix="+" id="fact3">0</div>
+            <div class="fact-label" data-i18n="footer_fact3_label">Języków rozumie AI:</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aiki bye -->
+      <div style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <!-- Mini Aiki SVG -->
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" style="animation:aiki-float 3s ease-in-out infinite">
+          <rect x="28" y="18" width="44" height="36" rx="12" fill="#3D2B7A"/>
+          <rect x="34" y="24" width="32" height="24" rx="8" fill="#2D1F5E"/>
+          <rect x="36" y="30" width="10" height="10" rx="4" fill="#06B6D4"/>
+          <rect x="54" y="30" width="10" height="10" rx="4" fill="#06B6D4"/>
+          <ellipse class="aiki-eye" cx="41" cy="35" rx="3" ry="3.5" fill="#0E7490"/>
+          <ellipse class="aiki-eye" cx="59" cy="35" rx="3" ry="3.5" fill="#0E7490"/>
+          <path d="M40 46 Q50 52 60 46" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <rect x="44" y="54" width="12" height="6" rx="3" fill="#3D2B7A"/>
+          <rect x="22" y="58" width="16" height="28" rx="8" fill="#3D2B7A"/>
+          <rect x="62" y="58" width="16" height="28" rx="8" fill="#3D2B7A"/>
+          <rect x="28" y="60" width="44" height="32" rx="10" fill="#3D2B7A"/>
+          <rect x="34" y="66" width="32" height="20" rx="6" fill="#2D1F5E"/>
+          <text x="50" y="80" font-size="10" text-anchor="middle">❤️</text>
+          <text x="22" y="92" font-size="14">👋</text>
+        </svg>
+        <p style="font-weight:800;color:var(--text);margin:0.5rem 0" data-i18n="footer_bye">
+          Do zobaczenia! Pamiętaj — Ty też możesz tworzyć AI! 🚀
+        </p>
+      </div>
+    </div>
+
+    <p class="footer-credit" data-i18n="footer_credit">Stworzone dla uczniów w wieku 10–12 lat</p>
+  </div>
+</footer>
+
+<!-- ==================== UNLOCK OVERLAY ==================== -->
+<div id="unlock-overlay" role="dialog" aria-modal="true" aria-labelledby="unlock-title">
+  <div class="unlock-box">
+    <div class="unlock-icon">🎉</div>
+    <h2 id="unlock-title" data-i18n="unlock_title">Odblokowano!</h2>
+    <p id="unlock-msg">Nowa zawartość dostępna!</p>
+    <button type="button" class="btn btn-primary pulse-glow" data-close-unlock data-i18n="unlock_close">Super!</button>
+  </div>
+</div>
+
+<!-- Confetti -->
+<div id="confetti-container" aria-hidden="true"></div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script src="js/compat.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/game1.js"></script>
+<script src="js/game2.js"></script>
+<script src="js/game3.js"></script>
+<script src="js/game4.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/tutorial.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
