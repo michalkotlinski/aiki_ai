@@ -3,8 +3,18 @@
 // ==========================================
 
 // ---- Navigation ----
+function revealElement(el) {
+  if (!el) return;
+  el.classList.add('visible');
+  el.querySelectorAll('.reveal').forEach(function(child) {
+    child.classList.add('visible');
+  });
+}
+
 function scrollToSection(sectionId) {
-  smoothScrollToElement(document.getElementById(sectionId), 'start');
+  var el = document.getElementById(sectionId);
+  revealElement(el);
+  smoothScrollToElement(el, 'start');
 }
 
 function initUIHandlers() {
@@ -46,7 +56,7 @@ function initUIHandlers() {
 
 // Active nav link on scroll
 function initNavHighlight() {
-  const sections = ['hero', 'info', 'programming', 'games', 'quiz-section', 'footer-section'];
+  const sections = ['hero', 'info', 'programming', 'first-ai', 'tutorial', 'games', 'quiz-section', 'footer-section'];
   const links = document.querySelectorAll('.nav-links a[data-section]');
 
   observeWhenVisible(

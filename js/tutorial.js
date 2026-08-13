@@ -23,15 +23,22 @@
   let kValueEl = null;
   let copyBtn = null;
   let copyMsg = null;
+  let canvasWrap = null;
+  let predMarker = null;
+  let predLabel = null;
+  let livePredEl = null;
 
   // Color constants
   const COLORS = {
     red: '#EC4899',
     blue: '#06B6D4',
-    redLight: 'rgba(236, 72, 153, 0.1)',
-    blueLight: 'rgba(6, 182, 212, 0.1)',
-    gridSize: 20
+    redLight: 'rgba(236, 72, 153, 0.55)',
+    blueLight: 'rgba(6, 182, 212, 0.55)',
+    canvasBg: '#1A1035',
+    gridSize: 16
   };
+
+  let hoverPoint = null;
 
   // Initialize when DOM is ready
   function init() {
@@ -55,10 +62,18 @@
     kValueEl = document.getElementById('tut-k-value');
     copyBtn = document.getElementById('tut-copy-code');
     copyMsg = document.getElementById('tut-copy-msg');
+    canvasWrap = document.getElementById('tut-canvas-wrap');
+    predMarker = document.getElementById('tut-pred-marker');
+    predLabel = document.getElementById('tut-pred-label');
+    livePredEl = document.getElementById('tut-live-pred');
 
-    // Event listeners
+    // Event listeners — clicks only on canvas; hover on whole wrap
     canvas.addEventListener('click', handleCanvasClick);
     canvas.addEventListener('touchstart', handleTouch, { passive: false });
+    const pointerTarget = canvasWrap || canvas;
+    pointerTarget.addEventListener('mousemove', handleCanvasHover);
+    pointerTarget.addEventListener('mouseleave', clearHover);
+    pointerTarget.addEventListener('touchmove', handleTouchHover, { passive: false });
     redBtn.addEventListener('click', () => setColor('red'));
     blueBtn.addEventListener('click', () => setColor('blue'));
     clearBtn.addEventListener('click', clearPoints);
@@ -70,15 +85,25 @@
     draw();
   }
 
+  // Map screen coords to canvas internal coords (handles CSS scaling)
+  function canvasCoords(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY
+    };
+  }
+
+  function isInsideCanvas(x, y) {
+    return x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height;
+  }
+
   // Handle canvas click (mouse)
   function handleCanvasClick(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    // Check bounds
-    if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) return;
-
+    const { x, y } = canvasCoords(e.clientX, e.clientY);
+    if (!isInsideCanvas(x, y)) return;
     addPoint(x, y);
   }
 
@@ -86,13 +111,87 @@
   function handleTouch(e) {
     e.preventDefault();
     const touch = e.touches[0];
-    const rect = canvas.getBoundingClientRect();
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-
-    if (x < 0 || x > canvas.width || y < 0 || y > canvas.height) return;
-
+    const { x, y } = canvasCoords(touch.clientX, touch.clientY);
+    if (!isInsideCanvas(x, y)) return;
     addPoint(x, y);
+  }
+
+  function handleCanvasHover(e) {
+    updateHoverPreview(e.clientX, e.clientY);
+  }
+
+  function handleTouchHover(e) {
+    if (!e.touches.length) return;
+    updateHoverPreview(e.touches[0].clientX, e.touches[0].clientY);
+  }
+
+  function updateHoverPreview(clientX, clientY) {
+    const canvasRect = canvas.getBoundingClientRect();
+    if (
+      clientX < canvasRect.left || clientX > canvasRect.right ||
+      clientY < canvasRect.top || clientY > canvasRect.bottom
+    ) {
+      clearHover();
+      return;
+    }
+
+    const { x, y } = canvasCoords(clientX, clientY);
+    if (!isInsideCanvas(x, y)) {
+      clearHover();
+      return;
+    }
+    hoverPoint = { x, y };
+    showHoverOverlay(clientX, clientY, predict(x, y));
+  }
+
+  function showHoverOverlay(clientX, clientY, pred) {
+    if (!predMarker || !canvasWrap || points.length === 0 || !pred) {
+      hideHoverOverlay();
+      return;
+    }
+
+    const wrapRect = canvasWrap.getBoundingClientRect();
+    const canvasRect = canvas.getBoundingClientRect();
+    const left = clientX - wrapRect.left;
+    const top = clientY - wrapRect.top;
+
+    // Keep marker inside canvas bounds visually
+    const minX = canvasRect.left - wrapRect.left;
+    const minY = canvasRect.top - wrapRect.top;
+    const maxX = minX + canvasRect.width;
+    const maxY = minY + canvasRect.height;
+    const clampedLeft = Math.max(minX, Math.min(maxX, left));
+    const clampedTop = Math.max(minY, Math.min(maxY, top));
+
+    predMarker.classList.remove('hidden', 'red', 'blue');
+    predMarker.classList.add(pred);
+    predMarker.style.left = clampedLeft + 'px';
+    predMarker.style.top = clampedTop + 'px';
+
+    const labelText = pred === 'red' ? t('tut_pred_red') : t('tut_pred_blue');
+    if (predLabel) {
+      predLabel.classList.remove('hidden');
+      predLabel.textContent = labelText;
+      predLabel.style.left = clampedLeft + 'px';
+      predLabel.style.top = clampedTop + 'px';
+    }
+
+    if (livePredEl) {
+      livePredEl.textContent = t('tut_live_pred').replace('{pred}', labelText);
+    }
+  }
+
+  function hideHoverOverlay() {
+    if (predMarker) predMarker.classList.add('hidden');
+    if (predLabel) predLabel.classList.add('hidden');
+    if (livePredEl && points.length === 0) {
+      livePredEl.textContent = t('tut_live_pred_empty');
+    }
+  }
+
+  function clearHover() {
+    hoverPoint = null;
+    hideHoverOverlay();
   }
 
   // Add a training point
@@ -100,6 +199,9 @@
     points.push({ x, y, color: currentColor });
     updateUI();
     draw();
+    if (livePredEl && points.length > 0 && !hoverPoint) {
+      livePredEl.textContent = t('tut_live_pred_hint');
+    }
   }
 
   // Set current drawing color
@@ -112,6 +214,7 @@
   // Clear all points
   function clearPoints() {
     points = [];
+    clearHover();
     updateUI();
     draw();
   }
@@ -131,7 +234,7 @@
 
   // k-NN prediction
   function predict(x, y) {
-    if (points.length === 0) return 'red';
+    if (points.length === 0) return null;
 
     // 1. Calculate distances to ALL training points
     const distances = points.map(p => ({ color: p.color, d: distance(p, { x, y }) }));
@@ -147,6 +250,10 @@
     return redVotes > neighbors.length / 2 ? 'red' : 'blue';
   }
 
+  function drawPredictionMarker(x, y, pred) {
+    // kept for API compatibility; marker is now HTML overlay
+  }
+
   // Draw everything
   function draw() {
     if (!ctx) return;
@@ -154,20 +261,28 @@
     const w = canvas.width;
     const h = canvas.height;
 
-    // Clear canvas
     ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = COLORS.canvasBg;
+    ctx.fillRect(0, 0, w, h);
 
-    // Draw decision boundary grid
+    if (points.length === 0) {
+      ctx.fillStyle = 'rgba(241, 240, 255, 0.55)';
+      ctx.font = '700 16px Nunito, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(t('tut_canvas_hint'), w / 2, h / 2);
+      return;
+    }
+
     const gridSize = COLORS.gridSize;
     for (let x = 0; x < w; x += gridSize) {
       for (let y = 0; y < h; y += gridSize) {
-        const pred = predict(x, y);
+        const pred = predict(x + gridSize / 2, y + gridSize / 2);
         ctx.fillStyle = pred === 'red' ? COLORS.redLight : COLORS.blueLight;
         ctx.fillRect(x, y, gridSize, gridSize);
       }
     }
 
-    // Draw training points
     points.forEach(p => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, 10, 0, Math.PI * 2);
@@ -177,7 +292,6 @@
       ctx.lineWidth = 2.5;
       ctx.stroke();
 
-      // White center dot for visibility
       ctx.beginPath();
       ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
       ctx.fillStyle = '#fff';
@@ -310,6 +424,12 @@ draw(); // Pierwsze rysowanie
       tut_stat_red: 'Czerwone: 0',
       tut_stat_blue: 'Niebieskie: 0',
       tut_stat_k: 'k = 3',
+      tut_canvas_hint: 'Dodaj punkty — kolorowe tło pokaże przewidywania AI',
+      tut_pred_red: '🔴 czerwony',
+      tut_pred_blue: '🔵 niebieski',
+      tut_live_pred: 'AI przewiduje tutaj: {pred}',
+      tut_live_pred_empty: 'Najedź kursorem na planszę (po dodaniu punktów), żeby zobaczyć przewidywanie AI.',
+      tut_live_pred_hint: 'Najedź kursorem na planszę — zobaczysz żółty marker przewidywania!',
       tut_copy_btn: '📋 Skopiuj kod do schowka',
       tut_copy_success: 'Skopiowano! Wklej do pliku .html i otwórz w przeglądarce.'
     };
@@ -320,6 +440,15 @@ draw(); // Pierwsze rysowanie
   document.addEventListener('langchange', (e) => {
     updateUI();
     if (kDisplay) kDisplay.textContent = k;
+    if (hoverPoint && predMarker && !predMarker.classList.contains('hidden')) {
+      showHoverOverlay(
+        canvas.getBoundingClientRect().left + (hoverPoint.x / canvas.width) * canvas.getBoundingClientRect().width,
+        canvas.getBoundingClientRect().top + (hoverPoint.y / canvas.height) * canvas.getBoundingClientRect().height,
+        predict(hoverPoint.x, hoverPoint.y)
+      );
+    } else if (livePredEl && points.length === 0) {
+      livePredEl.textContent = t('tut_live_pred_empty');
+    }
   });
 
   // Auto-init when DOM is ready

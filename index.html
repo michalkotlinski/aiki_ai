@@ -26,6 +26,7 @@
     <ul class="nav-links">
       <li><a href="#info"         data-section="info"         data-scroll-target="info"         data-i18n="nav_info">Informacje</a></li>
       <li><a href="#programming"  data-section="programming"  data-scroll-target="programming"  data-i18n="nav_prog">Programowanie</a></li>
+      <li><a href="#first-ai"     data-section="first-ai"     data-scroll-target="first-ai"     data-i18n="nav_first_ai">Pierwszy program</a></li>
       <li><a href="#tutorial"      data-section="tutorial"      data-scroll-target="tutorial"      data-i18n="nav_tutorial">Tutorial</a></li>
       <li><a href="#games"        data-section="games"        data-scroll-target="games"        data-i18n="nav_games">Gry</a></li>
       <li><a href="#quiz-section" data-section="quiz-section" data-scroll-target="quiz-section" data-i18n="nav_quiz">Quiz</a></li>
@@ -399,7 +400,228 @@
         </div>
         <p class="prog-scratch-note" data-i18n="prog_scratch_note">Wypróbuj to sam w grze „Laboratorium Scratch” poniżej albo na stronie ML for Kids!</p>
         <button type="button" class="btn btn-accent" data-scroll-target="games" data-i18n="prog_btn_game">🎮 Zagraj w Laboratorium Scratch</button>
+        <button type="button" class="btn btn-secondary" data-scroll-target="raise-activity" style="margin-top:0.75rem" data-i18n="prog_btn_raise">🎓 Aktywność: MIT RAISE Playground</button>
       </div>
+
+      <!-- MIT RAISE Playground activity -->
+      <div class="prog-raise reveal visible" id="raise-activity">
+        <div class="prog-raise-header">
+          <span class="section-badge" data-i18n="raise_badge">Aktywność · od 10 lat</span>
+          <h3 data-i18n="raise_title">🧪 Programuj prawdziwe AI — MIT RAISE Playground</h3>
+          <p class="prog-example-desc" data-i18n="raise_desc">To prawdziwy edytor Scratch z bloczkami AI od MIT! Nauczysz komputer rozpoznawać obrazy — np. koty i psy — i zaprogramujesz, co ma powiedzieć.</p>
+        </div>
+
+        <div class="raise-activity-grid">
+          <div class="raise-steps-box">
+            <h4 data-i18n="raise_steps_title">📋 Twoje zadanie — krok po kroku</h4>
+            <ol class="prog-step-list raise-step-list">
+              <li><span class="prog-step-num">1</span><span data-i18n="raise_step1">Otwórz edytor poniżej (albo kliknij „Pełne okno”, jeśli mały ekran).</span></li>
+              <li><span class="prog-step-num">2</span><span data-i18n-html="raise_step2">Znajdź rozszerzenie <strong>Teachable Machine</strong> — bloczki do uczenia AI na zdjęciach (w /create/ jest już włączone).</span></li>
+              <li><span class="prog-step-num">3</span><span data-i18n="raise_step3">Wytrenuj model: dodaj przykłady klasy A (np. 🐱 kot) i klasy B (np. 🐶 pies).</span></li>
+              <li><span class="prog-step-num">4</span><span data-i18n-html="raise_step4">Dodaj reakcję: <em>gdy rozpoznano kot</em> → powiedz „Miau!”, <em>gdy rozpoznano pies</em> → powiedz „Hau!”.</span></li>
+              <li><span class="prog-step-num">5</span><span data-i18n="raise_step5">Kliknij zieloną flagę 🚩 i przetestuj kamerą lub nowymi zdjęciami!</span></li>
+            </ol>
+          </div>
+          <div class="raise-tips-box">
+            <h4 data-i18n="raise_tips_title">💡 Wskazówki Aikiego</h4>
+            <ul class="raise-tips-list">
+              <li data-i18n="raise_tip1">Im więcej przykładów, tym lepiej AI rozpoznaje — tak jak w grze „Naucz Aikiego!”</li>
+              <li data-i18n="raise_tip2">Możesz użyć kamery laptopa albo wgrać zdjęcia z dysku.</li>
+              <li data-i18n-html="raise_tip3">Menu <strong>Tutorials</strong> w edytorze ma gotowe lekcje po angielsku.</li>
+              <li data-i18n-html="raise_tip4">Projekt zapiszesz przez <strong>File → Save to your computer</strong>.</li>
+            </ul>
+            <p class="raise-attribution" data-i18n="raise_attribution">Playground MIT RAISE — darmowe narzędzie edukacyjne (licencja CC-BY-NC).</p>
+          </div>
+        </div>
+
+        <div class="raise-embed-wrap">
+          <iframe
+            id="raise-iframe"
+            class="raise-iframe"
+            title="MIT RAISE Playground — Teachable Machine"
+            src="https://playground.raise.mit.edu/create/"
+            loading="lazy"
+            allow="camera; microphone; fullscreen"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <p class="raise-embed-fallback" data-i18n="raise_embed_fallback">Edytor nie ładuje się? Otwórz Playground w nowej karcie — działa na pełnym ekranie.</p>
+        </div>
+
+        <div class="raise-actions">
+          <a href="https://playground.raise.mit.edu/create/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-i18n="raise_btn_full">🚀 Otwórz Playground w pełnym oknie</a>
+          <a href="https://playground.raise.mit.edu/main/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="raise_btn_blank">📄 Pusty projekt (main)</a>
+          <a href="https://raise.mit.edu/resources/raise-playground/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="raise_btn_learn">📚 Więcej o RAISE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FIRST AI PROGRAM (for kids ~11) ==================== -->
+<section id="first-ai" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-badge" data-i18n="fai_badge">Poziom 1 · od 10 lat</span>
+      <h2 data-i18n="fai_title">Twój pierwszy program AI — Naucz Aikiego!</h2>
+      <p data-i18n="fai_subtitle">Bez skomplikowanej matematyki! Pokażesz robotowi przykłady, a on nauczy się zgadywać — dokładnie tak działa uczenie maszynowe.</p>
+    </div>
+
+    <div class="cards-grid reveal">
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">📒</div>
+            <h3 data-i18n="fai_card1_front">Pamiętnik przykładów</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="fai_card1_front">Pamiętnik przykładów</div>
+            <p data-i18n="fai_card1_back">AI nie rodzi się mądra — Ty ją uczysz! Każde zdjęcie z etykietą „kot” lub „pies” trafia do pamiętnika. Im więcej przykładów, tym lepiej pamięta.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">🗳️</div>
+            <h3 data-i18n="fai_card2_front">Głosowanie</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="fai_card2_front">Głosowanie</div>
+            <p data-i18n="fai_card2_back">Gdy Aiki widzi coś nowego, patrzy do pamiętnika: ile było kotów, a ile psów? Wygrywa ta grupa, której było więcej — to proste głosowanie!</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="info-card" tabindex="0" role="button">
+        <div class="info-card-inner">
+          <div class="card-front">
+            <div class="card-icon">🤖</div>
+            <h3 data-i18n="fai_card3_front">To prawdziwe AI!</h3>
+            <span class="card-hint">👆 kliknij</span>
+          </div>
+          <div class="card-back">
+            <div class="card-back-title" data-i18n="fai_card3_front">To prawdziwe AI!</div>
+            <p data-i18n="fai_card3_back">Tak w skrócie działają filtry na zdjęciach, rozpoznawanie mowy i wiele gier — program uczy się z przykładów, które mu pokazujesz.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Visual program recipe -->
+    <div class="prog-example reveal" style="margin-top: 2rem;">
+      <h3 data-i18n="fai_recipe_title">📝 Program Aikiego — 4 proste kroki</h3>
+      <p class="prog-example-desc" data-i18n="fai_recipe_desc">To jest „program” w języku zrozumiałym dla człowieka. Później zobaczysz, jak wygląda to w kodzie!</p>
+      <div class="fai-recipe-blocks">
+        <div class="fai-recipe-step"><span class="fai-step-num">1</span><span data-i18n="fai_recipe1">Pokaż Aikiemu zdjęcie zwierzęcia 🐱🐶</span></div>
+        <div class="fai-recipe-step"><span class="fai-step-num">2</span><span data-i18n="fai_recipe2">Powiedz mu: „To kot!” albo „To pies!”</span></div>
+        <div class="fai-recipe-step"><span class="fai-step-num">3</span><span data-i18n="fai_recipe3">Powtórz z wieloma różnymi zdjęciami</span></div>
+        <div class="fai-recipe-step"><span class="fai-step-num">4</span><span data-i18n="fai_recipe4">Poproś o zgadywanie — Aiki sprawdzi, czego było więcej w pamiętniku!</span></div>
+      </div>
+    </div>
+
+    <!-- Interactive demo -->
+    <div class="prog-example reveal fai-demo-wrap" style="margin-top: 2rem;">
+      <h3 data-i18n="fai_demo_title">🎮 Wypróbuj sam — naucz Aikiego!</h3>
+      <p class="prog-example-desc" data-i18n="fai_demo_desc">Wybierz etykietę dla każdego zdjęcia. Gdy masz co najmniej 3 przykłady, poproś Aikiego o zgadywanie!</p>
+
+      <div class="fai-layout">
+        <div class="fai-panel fai-teach-panel">
+          <p class="fai-phase-label" id="fai-phase-label" data-i18n="fai_phase_teach">Krok 1: Ucz Aikiego</p>
+          <div class="fai-current-image" id="fai-current-image" aria-live="polite">🐱</div>
+          <p class="fai-choice-hint" data-i18n="fai_choose_label">Co to jest?</p>
+          <div class="fai-btn-row">
+            <button type="button" class="btn btn-accent fai-label-btn" id="fai-btn-cat" data-label="cat" data-i18n="fai_its_cat">🐱 To kot!</button>
+            <button type="button" class="btn btn-secondary fai-label-btn fai-label-dog" id="fai-btn-dog" data-label="dog" data-i18n="fai_its_dog">🐕 To pies!</button>
+          </div>
+          <div class="fai-btn-row" style="margin-top: 0.75rem;">
+            <button type="button" class="btn btn-primary" id="fai-skip-btn" data-i18n="fai_skip">⏭️ Inne zdjęcie</button>
+            <button type="button" class="btn btn-secondary" id="fai-guess-btn" disabled data-i18n="fai_guess_btn">🔮 Niech Aiki zgaduje!</button>
+          </div>
+          <button type="button" class="btn btn-secondary fai-reset-btn" id="fai-reset-btn" data-i18n="fai_reset">🗑️ Wyczyść pamiętnik</button>
+        </div>
+
+        <div class="fai-panel fai-brain-panel">
+          <div class="fai-aiki-face" aria-hidden="true">🤖</div>
+          <div class="fai-speech" id="fai-speech" data-i18n="fai_speech_start">Cześć! Pokaż mi zdjęcia — nauczę się rozpoznawać koty i psy!</div>
+
+          <div class="fai-brain-bar">
+            <div class="fai-brain-bar-label"><span data-i18n="fai_cats_learned">Koty w pamięci:</span> <strong id="fai-cat-count">0</strong></div>
+            <div class="fai-brain-fill-wrap"><div class="fai-brain-fill cats" id="fai-cat-bar" style="width:0%"></div></div>
+          </div>
+          <div class="fai-brain-bar">
+            <div class="fai-brain-bar-label"><span data-i18n="fai_dogs_learned">Psy w pamięci:</span> <strong id="fai-dog-count">0</strong></div>
+            <div class="fai-brain-fill-wrap"><div class="fai-brain-fill dogs" id="fai-dog-bar" style="width:0%"></div></div>
+          </div>
+
+          <div class="fai-notebook">
+            <h4 data-i18n="fai_notebook_title">📒 Pamiętnik Aikiego</h4>
+            <ul id="fai-notebook-list" class="fai-notebook-list">
+              <li class="fai-notebook-empty" data-i18n="fai_notebook_empty">Jeszcze pusto — dodaj pierwszy przykład!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="fai-guess-area hidden" id="fai-guess-area">
+        <p data-i18n="fai_guess_prompt">Aiki widzi nowe zdjęcie i myśli...</p>
+        <div class="fai-guess-img" id="fai-guess-img">❓</div>
+        <div class="fai-guess-result" id="fai-guess-result"></div>
+        <button type="button" class="btn btn-accent" id="fai-guess-again" data-i18n="fai_guess_again">🔄 Zgaduj jeszcze raz</button>
+      </div>
+    </div>
+
+    <!-- Simple pseudocode -->
+    <div class="prog-example reveal" style="margin-top: 2rem; text-align: left;">
+      <h3 data-i18n="fai_code_title">💡 Jak to wygląda w kodzie?</h3>
+      <p class="prog-example-desc" data-i18n="fai_code_desc">To uproszczony pseudokod — bez Pitagorasa i bez trudnych słów. Cała „mądrość” Aikiego to lista przykładów!</p>
+      <div class="code-block fai-pseudo-code">
+        <pre><code><span class="comment">// Pamiętnik — tu trzymamy to, czego się nauczyliśmy</span>
+<span class="kw">let</span> <span class="var">pamiętnik</span> = [];
+
+<span class="comment">// KROK 1–3: Ty uczysz Aikiego</span>
+<span class="kw">function</span> <span class="fn">naucz</span>(zdjęcie, etykieta) {
+  pamiętnik.<span class="fn">push</span>({ zdjęcie, etykieta });
+}
+
+<span class="comment">// KROK 4: Aiki zgaduje nowe zdjęcie</span>
+<span class="kw">function</span> <span class="fn">zgadnij</span>(noweZdjęcie) {
+  <span class="kw">let</span> koty = pamiętnik.<span class="fn">filter</span>(p => p.etykieta === <span class="str">"kot"</span>).<span class="var">length</span>;
+  <span class="kw">let</span> psy  = pamiętnik.<span class="fn">filter</span>(p => p.etykieta === <span class="str">"pies"</span>).<span class="var">length</span>;
+  <span class="kw">if</span> (koty > psy) <span class="kw">return</span> <span class="str">"To kot!"</span>;
+  <span class="kw">if</span> (psy > koty) <span class="kw">return</span> <span class="str">"To pies!"</span>;
+  <span class="kw">return</span> <span class="str">"Nie wiem — pokaż mi więcej!"</span>;
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Key concepts -->
+    <div class="prog-steps reveal" style="margin-top: 2rem;">
+      <h3 data-i18n="fai_concepts_title">🔑 Co właśnie zrobiłeś?</h3>
+      <ol class="prog-step-list">
+        <li><span class="prog-step-num">1</span><span data-i18n-html="fai_concept1"><strong>Dane treningowe</strong> = zdjęcia z etykietami, które sam dodałeś</span></li>
+        <li><span class="prog-step-num">2</span><span data-i18n-html="fai_concept2"><strong>Etykieta</strong> = odpowiedź „kot” lub „pies”, którą podajesz AI</span></li>
+        <li><span class="prog-step-num">3</span><span data-i18n-html="fai_concept3"><strong>Predykcja</strong> = zgadywanie na podstawie tego, czego AI się nauczyła</span></li>
+        <li><span class="prog-step-num">4</span><span data-i18n-html="fai_concept4"><strong>Im więcej przykładów, tym lepiej</strong> — dokładnie jak Ty uczysz się nowych słów!</span></li>
+      </ol>
+    </div>
+
+    <!-- Experiments -->
+    <div class="prog-example reveal" style="margin-top: 2rem; text-align: left;">
+      <h3 data-i18n="fai_experiments_title">🧪 Eksperymenty dla ciekawskich</h3>
+      <ul class="fai-exp-list">
+        <li data-i18n="fai_exp1">Naucz Aikiego tylko kotami — co powie o nowym zdjęciu psa?</li>
+        <li data-i18n="fai_exp2">Dodaj 8 psów i 2 koty — kogo Aiki wybierze częściej?</li>
+        <li data-i18n="fai_exp3">Wyczyść pamiętnik i zacznij od nowa z równą liczbą kotów i psów</li>
+        <li data-i18n="fai_exp4">Porównaj z grą „Naucz Aikiego!” — to ten sam pomysł, tylko w wersji do zabawy!</li>
+      </ul>
+    </div>
+
+    <div class="prog-example reveal fai-next-wrap" style="margin-top: 2rem; text-align: center;">
+      <p class="prog-example-desc" data-i18n="fai_next_desc">Gotowy na coś trudniejszego? W następnym tutorialu zbudujesz prawdziwy algorytm k-NN w HTML i JavaScript!</p>
+      <button type="button" class="btn btn-primary" data-scroll-target="tutorial" data-i18n="fai_next_btn">➡️ Tutorial zaawansowany (k-NN)</button>
     </div>
   </div>
 </section>
@@ -408,7 +630,8 @@
 <section id="tutorial" class="section section-alt">
   <div class="container">
     <div class="section-header reveal">
-      <h2 data-i18n="tutorial_title">Twój pierwszy program AI w HTML i JavaScript</h2>
+      <span class="section-badge" data-i18n="tut_badge">Poziom 2 · od 12 lat</span>
+      <h2 data-i18n="tutorial_title">Tutorial zaawansowany — program AI w HTML i JavaScript</h2>
       <p data-i18n="tutorial_subtitle">Zbuduj prosty klasyfikator k-NN, który uczy się rozpoznawać punkty na płaszczyźnie!</p>
     </div>
 
@@ -477,8 +700,10 @@
         </div>
 
         <!-- Canvas -->
-        <div style="position: relative; display: inline-block;">
+        <div id="tut-canvas-wrap" class="tut-canvas-wrap">
           <canvas id="tut-canvas" width="600" height="400" style="border: 2px solid var(--border); border-radius: var(--radius); background: var(--bg3); cursor: crosshair; box-shadow: var(--shadow);"></canvas>
+          <div id="tut-pred-marker" class="tut-pred-marker hidden" aria-hidden="true"></div>
+          <div id="tut-pred-label" class="tut-pred-label hidden" aria-hidden="true"></div>
           <!-- Legend overlay -->
           <div id="tut-legend" style="position: absolute; top: 10px; right: 10px; background: rgba(15,10,30,0.9); padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid var(--border); font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 140px;">
             <div style="display:flex;align-items:center;gap:0.5rem">
@@ -489,9 +714,9 @@
               <span style="width:12px;height:12px;border-radius:50%;background:#06B6D4"></span>
               <span data-i18n="tut_legend_blue">Niebieska klasa</span>
             </div>
-            <div style="display:flex;align-items:center;gap:0.5rem;opacity:0.7">
-              <span style="width:12px;height:12px;border-radius:50%;background:#FBBF24"></span>
-              <span data-i18n="tut_legend_pred">Przewidywanie AI</span>
+            <div style="display:flex;align-items:center;gap:0.5rem;opacity:0.9">
+              <span style="width:12px;height:12px;border-radius:50%;background:#FBBF24;border:2px solid #fff"></span>
+              <span data-i18n="tut_legend_pred">Przewidywanie AI (najedź kursorem)</span>
             </div>
           </div>
         </div>
@@ -502,6 +727,7 @@
           <span><strong id="tut-count-blue" data-i18n="tut_stat_blue">Niebieskie: 0</strong></span>
           <span><strong id="tut-k-value" data-i18n="tut_stat_k">k = 3</strong></span>
         </div>
+        <p id="tut-live-pred" class="tut-live-pred" aria-live="polite" data-i18n="tut_live_pred_empty">Najedź kursorem na planszę (po dodaniu punktów), żeby zobaczyć przewidywanie AI.</p>
 
         <!-- k slider -->
         <div style="margin-top: 1rem; max-width: 300px; margin-left: auto; margin-right: auto;">
@@ -510,6 +736,19 @@
             <input type="range" id="tut-k-slider" min="1" max="15" value="3" style="flex:1;accent-color:var(--purple)">
             <span id="tut-k-display" style="min-width:2rem;text-align:center;font-weight:800;color:var(--purple-lt)">3</span>
           </label>
+        </div>
+
+        <!-- Kid-friendly explanation -->
+        <div class="tut-explain">
+          <h4 data-i18n="tut_explain_title">🧒 Co tu się dzieje?</h4>
+          <p class="tut-explain-intro" data-i18n="tut_explain_intro">To jak gra w „zgadywanie na podstawie sąsiadów”. AI nie zna magicznych sztuczek — po prostu patrzy, jakie punkty są blisko!</p>
+          <div class="fai-recipe-blocks tut-explain-steps">
+            <div class="fai-recipe-step"><span class="fai-step-num">1</span><span data-i18n="tut_explain1">Wybierz kolor (czerwony lub niebieski) i kliknij planszę — to Twoje przykłady, z których AI się uczy.</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">2</span><span data-i18n="tut_explain2">Kolorowe tło to mapa przewidywań — różowe i niebieskie strefy pokazują, co AI „myśli” o każdym miejscu na planszy.</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">3</span><span data-i18n="tut_explain3">Najedź kursorem — żółty marker mówi: „gdyby tu wpadł nowy punkt, wybrałbym ten kolor!”</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">4</span><span data-i18n-html="tut_explain4">AI szuka <strong>k</strong> najbliższych punktów (sąsiadów) i głosuje — jak na lekcji wykopów: większość wygrywa!</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">5</span><span data-i18n-html="tut_explain5">Suwakiem <strong>k</strong> zmieniasz liczbę sąsiadów: małe k = granica bardziej poszarpana, duże k = bardziej gładka i spokojna.</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -774,6 +1013,7 @@ draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
           <li><a href="https://scratch.mit.edu" target="_blank" rel="noopener">🐱 Scratch — twórz własne gry</a></li>
           <li><a href="https://www.cs.cmu.edu/~112/" target="_blank" rel="noopener">🎓 CS Academy — programowanie</a></li>
           <li><a href="https://machinelearningforkids.co.uk" target="_blank" rel="noopener">🤖 ML for Kids — AI dla dzieci</a></li>
+          <li><a href="https://playground.raise.mit.edu/create/" target="_blank" rel="noopener">🎓 MIT RAISE Playground — programowanie AI</a></li>
         </ul>
       </div>
 
@@ -847,6 +1087,7 @@ draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
 <script src="js/game3.js"></script>
 <script src="js/game4.js"></script>
 <script src="js/quiz.js"></script>
+<script src="js/first-ai.js"></script>
 <script src="js/tutorial.js"></script>
 <script src="js/main.js"></script>
 
