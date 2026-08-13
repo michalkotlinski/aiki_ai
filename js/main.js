@@ -3,8 +3,18 @@
 // ==========================================
 
 // ---- Navigation ----
+function revealElement(el) {
+  if (!el) return;
+  el.classList.add('visible');
+  el.querySelectorAll('.reveal').forEach(function(child) {
+    child.classList.add('visible');
+  });
+}
+
 function scrollToSection(sectionId) {
-  smoothScrollToElement(document.getElementById(sectionId), 'start');
+  var el = document.getElementById(sectionId);
+  revealElement(el);
+  smoothScrollToElement(el, 'start');
 }
 
 function initUIHandlers() {
