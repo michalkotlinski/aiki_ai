@@ -400,6 +400,58 @@
         </div>
         <p class="prog-scratch-note" data-i18n="prog_scratch_note">Wypróbuj to sam w grze „Laboratorium Scratch” poniżej albo na stronie ML for Kids!</p>
         <button type="button" class="btn btn-accent" data-scroll-target="games" data-i18n="prog_btn_game">🎮 Zagraj w Laboratorium Scratch</button>
+        <button type="button" class="btn btn-secondary" data-scroll-target="raise-activity" style="margin-top:0.75rem" data-i18n="prog_btn_raise">🎓 Aktywność: MIT RAISE Playground</button>
+      </div>
+
+      <!-- MIT RAISE Playground activity -->
+      <div class="prog-raise reveal" id="raise-activity">
+        <div class="prog-raise-header">
+          <span class="section-badge" data-i18n="raise_badge">Aktywność · od 10 lat</span>
+          <h3 data-i18n="raise_title">🧪 Programuj prawdziwe AI — MIT RAISE Playground</h3>
+          <p class="prog-example-desc" data-i18n="raise_desc">To prawdziwy edytor Scratch z bloczkami AI od MIT! Nauczysz komputer rozpoznawać obrazy — np. koty i psy — i zaprogramujesz, co ma powiedzieć.</p>
+        </div>
+
+        <div class="raise-activity-grid">
+          <div class="raise-steps-box">
+            <h4 data-i18n="raise_steps_title">📋 Twoje zadanie — krok po kroku</h4>
+            <ol class="prog-step-list raise-step-list">
+              <li><span class="prog-step-num">1</span><span data-i18n="raise_step1">Otwórz edytor poniżej (albo kliknij „Pełne okno”, jeśli mały ekran).</span></li>
+              <li><span class="prog-step-num">2</span><span data-i18n-html="raise_step2">Znajdź rozszerzenie <strong>Teachable Machine</strong> — bloczki do uczenia AI na zdjęciach (w /create/ jest już włączone).</span></li>
+              <li><span class="prog-step-num">3</span><span data-i18n="raise_step3">Wytrenuj model: dodaj przykłady klasy A (np. 🐱 kot) i klasy B (np. 🐶 pies).</span></li>
+              <li><span class="prog-step-num">4</span><span data-i18n-html="raise_step4">Dodaj reakcję: <em>gdy rozpoznano kot</em> → powiedz „Miau!”, <em>gdy rozpoznano pies</em> → powiedz „Hau!”.</span></li>
+              <li><span class="prog-step-num">5</span><span data-i18n="raise_step5">Kliknij zieloną flagę 🚩 i przetestuj kamerą lub nowymi zdjęciami!</span></li>
+            </ol>
+          </div>
+          <div class="raise-tips-box">
+            <h4 data-i18n="raise_tips_title">💡 Wskazówki Aikiego</h4>
+            <ul class="raise-tips-list">
+              <li data-i18n="raise_tip1">Im więcej przykładów, tym lepiej AI rozpoznaje — tak jak w grze „Naucz Aikiego!”</li>
+              <li data-i18n="raise_tip2">Możesz użyć kamery laptopa albo wgrać zdjęcia z dysku.</li>
+              <li data-i18n-html="raise_tip3">Menu <strong>Tutorials</strong> w edytorze ma gotowe lekcje po angielsku.</li>
+              <li data-i18n-html="raise_tip4">Projekt zapiszesz przez <strong>File → Save to your computer</strong>.</li>
+            </ul>
+            <p class="raise-attribution" data-i18n="raise_attribution">Playground MIT RAISE — darmowe narzędzie edukacyjne (licencja CC-BY-NC).</p>
+          </div>
+        </div>
+
+        <div class="raise-embed-wrap">
+          <iframe
+            id="raise-iframe"
+            class="raise-iframe"
+            title="MIT RAISE Playground — Teachable Machine"
+            src="https://playground.raise.mit.edu/create/"
+            loading="lazy"
+            allow="camera; microphone; fullscreen"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <p class="raise-embed-fallback" data-i18n="raise_embed_fallback">Edytor nie ładuje się? Otwórz Playground w nowej karcie — działa na pełnym ekranie.</p>
+        </div>
+
+        <div class="raise-actions">
+          <a href="https://playground.raise.mit.edu/create/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" data-i18n="raise_btn_full">🚀 Otwórz Playground w pełnym oknie</a>
+          <a href="https://playground.raise.mit.edu/main/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="raise_btn_blank">📄 Pusty projekt (main)</a>
+          <a href="https://raise.mit.edu/resources/raise-playground/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" data-i18n="raise_btn_learn">📚 Więcej o RAISE</a>
+        </div>
       </div>
     </div>
   </div>
@@ -648,8 +700,10 @@
         </div>
 
         <!-- Canvas -->
-        <div style="position: relative; display: inline-block;">
+        <div id="tut-canvas-wrap" class="tut-canvas-wrap">
           <canvas id="tut-canvas" width="600" height="400" style="border: 2px solid var(--border); border-radius: var(--radius); background: var(--bg3); cursor: crosshair; box-shadow: var(--shadow);"></canvas>
+          <div id="tut-pred-marker" class="tut-pred-marker hidden" aria-hidden="true"></div>
+          <div id="tut-pred-label" class="tut-pred-label hidden" aria-hidden="true"></div>
           <!-- Legend overlay -->
           <div id="tut-legend" style="position: absolute; top: 10px; right: 10px; background: rgba(15,10,30,0.9); padding: 0.75rem 1rem; border-radius: 10px; border: 1px solid var(--border); font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 140px;">
             <div style="display:flex;align-items:center;gap:0.5rem">
@@ -673,6 +727,7 @@
           <span><strong id="tut-count-blue" data-i18n="tut_stat_blue">Niebieskie: 0</strong></span>
           <span><strong id="tut-k-value" data-i18n="tut_stat_k">k = 3</strong></span>
         </div>
+        <p id="tut-live-pred" class="tut-live-pred" aria-live="polite" data-i18n="tut_live_pred_empty">Najedź kursorem na planszę (po dodaniu punktów), żeby zobaczyć przewidywanie AI.</p>
 
         <!-- k slider -->
         <div style="margin-top: 1rem; max-width: 300px; margin-left: auto; margin-right: auto;">
@@ -681,6 +736,19 @@
             <input type="range" id="tut-k-slider" min="1" max="15" value="3" style="flex:1;accent-color:var(--purple)">
             <span id="tut-k-display" style="min-width:2rem;text-align:center;font-weight:800;color:var(--purple-lt)">3</span>
           </label>
+        </div>
+
+        <!-- Kid-friendly explanation -->
+        <div class="tut-explain">
+          <h4 data-i18n="tut_explain_title">🧒 Co tu się dzieje?</h4>
+          <p class="tut-explain-intro" data-i18n="tut_explain_intro">To jak gra w „zgadywanie na podstawie sąsiadów”. AI nie zna magicznych sztuczek — po prostu patrzy, jakie punkty są blisko!</p>
+          <div class="fai-recipe-blocks tut-explain-steps">
+            <div class="fai-recipe-step"><span class="fai-step-num">1</span><span data-i18n="tut_explain1">Wybierz kolor (czerwony lub niebieski) i kliknij planszę — to Twoje przykłady, z których AI się uczy.</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">2</span><span data-i18n="tut_explain2">Kolorowe tło to mapa przewidywań — różowe i niebieskie strefy pokazują, co AI „myśli” o każdym miejscu na planszy.</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">3</span><span data-i18n="tut_explain3">Najedź kursorem — żółty marker mówi: „gdyby tu wpadł nowy punkt, wybrałbym ten kolor!”</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">4</span><span data-i18n-html="tut_explain4">AI szuka <strong>k</strong> najbliższych punktów (sąsiadów) i głosuje — jak na lekcji wykopów: większość wygrywa!</span></div>
+            <div class="fai-recipe-step"><span class="fai-step-num">5</span><span data-i18n-html="tut_explain5">Suwakiem <strong>k</strong> zmieniasz liczbę sąsiadów: małe k = granica bardziej poszarpana, duże k = bardziej gładka i spokojna.</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -945,6 +1013,7 @@ draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
           <li><a href="https://scratch.mit.edu" target="_blank" rel="noopener">🐱 Scratch — twórz własne gry</a></li>
           <li><a href="https://www.cs.cmu.edu/~112/" target="_blank" rel="noopener">🎓 CS Academy — programowanie</a></li>
           <li><a href="https://machinelearningforkids.co.uk" target="_blank" rel="noopener">🤖 ML for Kids — AI dla dzieci</a></li>
+          <li><a href="https://playground.raise.mit.edu/create/" target="_blank" rel="noopener">🎓 MIT RAISE Playground — programowanie AI</a></li>
         </ul>
       </div>
 
