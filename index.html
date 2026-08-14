@@ -29,6 +29,8 @@
       <li><a href="#first-ai"     data-section="first-ai"     data-scroll-target="first-ai"     data-i18n="nav_first_ai">Pierwszy program</a></li>
       <li><a href="#tutorial"      data-section="tutorial"      data-scroll-target="tutorial"      data-i18n="nav_tutorial">Tutorial</a></li>
       <li><a href="#games"        data-section="games"        data-scroll-target="games"        data-i18n="nav_games">Gry</a></li>
+      <li><a href="#safe-ai"      data-section="safe-ai"      data-scroll-target="safe-ai"      data-i18n="nav_safe_ai">Bezpiecznie z AI</a></li>
+      <li><a href="#factcheck"    data-section="factcheck"    data-scroll-target="factcheck"    data-i18n="nav_factcheck">Sprawdź z AI</a></li>
       <li><a href="#quiz-section" data-section="quiz-section" data-scroll-target="quiz-section" data-i18n="nav_quiz">Quiz</a></li>
     </ul>
     <button type="button" id="lang-toggle" aria-label="Zmień język / Change language">🇬🇧 EN</button>
@@ -953,6 +955,81 @@ draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
   </div>
 </section>
 
+<!-- ==================== SAFE AI MISSIONS ==================== -->
+<section id="safe-ai" class="section safe-ai-section" aria-labelledby="safe-ai-title">
+  <div class="container">
+    <div class="ai-signature-row reveal">
+      <span class="ai-signature-badge">Projektowanie treści: wsparte AI</span>
+      <span class="ai-signature-badge">Struktura pedagogiczna: dla uczniów K12</span>
+      <span class="ai-signature-badge">Nauka interaktywna: dla szkoły</span>
+    </div>
+    <div class="safe-ai-command reveal">
+      <div class="safe-ai-radar" aria-hidden="true"><span>⌁</span></div>
+      <div class="safe-ai-intro">
+        <p class="mission-kicker" data-i18n="safe_ai_kicker">PANEL DOWODZENIA · POZIOM BEZPIECZEŃSTWA</p>
+        <h2 id="safe-ai-title" data-i18n="safe_ai_title">Misje: Bezpiecznie z AI</h2>
+        <p data-i18n="safe_ai_subtitle">Aiki daje Ci supermoc: myślę, zanim kliknę. Zbierz pięć odznak dobrych nawyków.</p>
+        <button type="button" id="safe-ai-start" class="btn btn-accent" data-i18n="safe_ai_start">🧭 Zacznij od pierwszej misji</button>
+      </div>
+      <div class="mission-progress" aria-live="polite">
+        <div class="mission-progress-top"><span data-i18n="safe_ai_progress">Ukończone misje</span><strong id="safe-ai-count">0 / 5</strong></div>
+        <div class="mission-progress-track" role="progressbar" aria-label="Postęp misji" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span id="safe-ai-progress-bar"></span></div>
+        <button type="button" id="safe-ai-reset" class="mission-reset" data-i18n="safe_ai_reset">Zresetuj postęp</button>
+      </div>
+    </div>
+
+    <aside class="aiki-rules reveal" aria-labelledby="aiki-rules-title">
+      <div class="rules-emblem" aria-hidden="true">✦</div>
+      <div>
+        <p class="mission-kicker" data-i18n="safe_ai_rules_kicker">KARTA ZASAD AIKIEGO</p>
+        <h3 id="aiki-rules-title" data-i18n="safe_ai_rules_title">Zanim użyjesz AI...</h3>
+        <ol class="rules-list">
+          <li data-i18n="safe_ai_rule1">Zatrzymaj się</li>
+          <li data-i18n="safe_ai_rule2">Chroń prywatność</li>
+          <li data-i18n="safe_ai_rule3">Sprawdź fakty</li>
+          <li data-i18n="safe_ai_rule4">Powiedz, jak użyłeś AI</li>
+          <li data-i18n="safe_ai_rule5">Ty decydujesz</li>
+        </ol>
+      </div>
+    </aside>
+
+    <div id="safe-ai-missions" class="safe-ai-missions reveal" aria-live="polite"></div>
+    <div id="safe-ai-celebration" class="safe-ai-celebration hidden" role="status"></div>
+  </div>
+</section>
+
+<!-- ==================== FACT-CHECKING ==================== -->
+<section id="factcheck" class="section factcheck-section" aria-labelledby="factcheck-title">
+  <div class="container">
+    <div class="ai-signature-row factcheck-signature reveal">
+      <span class="ai-signature-badge">Weryfikacja faktów: wsparte AI</span>
+      <span class="ai-signature-badge">Przegląd źródeł: pod opieką nauczyciela</span>
+      <span class="ai-signature-badge">Cel edukacyjny: umiejętności medialne</span>
+    </div>
+    <header class="factcheck-header reveal">
+      <p class="mission-kicker" data-i18n="factcheck_kicker">CENTRUM WERYFIKACJI · NIE WIERZ W CIEMNO</p>
+      <h2 id="factcheck-title" data-i18n="factcheck_title">Fact-checking: sprawdzaj odpowiedzi AI</h2>
+      <p data-i18n="factcheck_intro">AI nie jest źródłem. Może zmyślać odpowiedzi, daty, cytaty i linki — nawet gdy brzmi bardzo pewnie.</p>
+    </header>
+
+    <div class="factcheck-flow reveal" aria-label="Proces fact-checkingu">
+      <article><span>1</span><h3 data-i18n="factcheck_stop_title">STOP</h3><p data-i18n="factcheck_stop_text">Czy twierdzenie jest ważne albo zaskakujące?</p></article>
+      <article><span>2</span><h3 data-i18n="factcheck_search_title">POSZUKAJ</h3><p data-i18n="factcheck_search_text">Znajdź źródło pierwotne lub zaufaną instytucję.</p></article>
+      <article><span>3</span><h3 data-i18n="factcheck_compare_title">PORÓWNAJ</h3><p data-i18n="factcheck_compare_text">Sprawdź dwa niezależne źródła i ich datę.</p></article>
+      <article><span>4</span><h3 data-i18n="factcheck_note_title">ZAPISZ</h3><p data-i18n="factcheck_note_text">Zaznacz źródła oraz to, w czym pomogła AI.</p></article>
+    </div>
+
+    <section class="detective-panel reveal" aria-labelledby="detective-title">
+      <div class="detective-heading">
+        <span class="detective-icon" aria-hidden="true">🕵️</span>
+        <div><p class="mission-kicker" data-i18n="detective_kicker">ĆWICZENIE PRAKTYCZNE</p><h3 id="detective-title" data-i18n="detective_title">Panel detektywa</h3></div>
+        <span id="detective-badge" class="detective-badge" aria-live="polite"></span>
+      </div>
+      <div id="detective-game" aria-live="polite"></div>
+    </section>
+  </div>
+</section>
+
 <!-- ==================== QUIZ ==================== -->
 <section id="quiz-section" class="section section-alt">
   <div class="container">
@@ -1000,6 +1077,11 @@ draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
 <!-- ==================== FOOTER ==================== -->
 <footer id="footer-section">
   <div class="container">
+    <div class="ai-signature-row ai-signature-footer reveal">
+      <span class="ai-signature-badge">Wsparcie programu nauczania: wsparte AI</span>
+      <span class="ai-signature-badge">Przegląd edukatorski: nauczycielem kierowany</span>
+      <span class="ai-signature-badge">Cel: świadome i bezpieczne AI</span>
+    </div>
     <div class="section-header" style="margin-bottom:2rem">
       <h2 data-i18n="footer_title">Chcesz dowiedzieć się więcej?</h2>
     </div>
@@ -1089,6 +1171,7 @@ draw(); <span style="color:#06B6D4">// Pierwsze rysowanie</span>
 <script src="js/quiz.js"></script>
 <script src="js/first-ai.js"></script>
 <script src="js/tutorial.js"></script>
+<script src="js/safe-ai.js"></script>
 <script src="js/main.js"></script>
 
 </body>

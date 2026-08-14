@@ -56,7 +56,7 @@ function initUIHandlers() {
 
 // Active nav link on scroll
 function initNavHighlight() {
-  const sections = ['hero', 'info', 'programming', 'first-ai', 'tutorial', 'games', 'quiz-section', 'footer-section'];
+  const sections = ['hero', 'info', 'programming', 'first-ai', 'tutorial', 'games', 'safe-ai', 'factcheck', 'quiz-section', 'footer-section'];
   const links = document.querySelectorAll('.nav-links a[data-section]');
 
   observeWhenVisible(
